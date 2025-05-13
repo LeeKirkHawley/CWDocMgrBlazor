@@ -1,0 +1,19 @@
+﻿@page "/documents"
+@using CWDocMgrBlazor.Client.Shared
+
+<h3>Documents</h3>
+
+<DocumentList Documents="documents"></DocumentList>
+
+@code {
+    List<DocumentModel> documents = new List<DocumentModel>
+    {
+        new DocumentModel
+        {
+            DocumentName = "Document1",
+            OriginalDocumentName = "OriginalDocument1",
+            DateString = DateTime.Now.ToString("yyyy-MM-dd"),
+            DocumentDate = DateTime.Now
+        }
+    };
+}

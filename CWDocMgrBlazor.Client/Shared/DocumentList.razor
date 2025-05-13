@@ -1,0 +1,61 @@
+﻿@using SharedLib.Models
+
+<h3>DocumentList</h3>
+
+<table class="table document-table">
+    <thead>
+        <tr>
+            <th>Original Name</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doc in Documents)
+        {
+            <tr class="document-table">
+                <td>@doc.OriginalDocumentName</td>
+                <td><a href="@("/documents/details/{doc.Id}")">@doc.DocumentName</a></td>
+                <td>@doc.DateString</td>
+                <td>
+                    <a asp-controller="Document" asp-action="Edit" asp-route-id="@doc.Id">Edit</a> |
+                    <a asp-controller="Document" asp-action="Details" asp-route-id="@doc.Id">Details</a> |
+                    <a asp-controller="Document" asp-action="Delete" asp-route-id="@doc.Id">Delete</a> |
+                    @* <a asp-controller="Document" asp-action="Ocr" asp-route-id="@doc.Id">OCR</a> *@
+                    @* <asp:button OnClick="doOCR(@doc.Id)">OCR</asp:button> *@
+                    <button type="button" class="link-button" onclick="doOCR(@doc.Id)">OCR</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+    [Parameter] public List<DocumentModel> Documents { get; set; } = new List<DocumentModel>();
+
+    // function doOCR(id)
+    // {
+    //     console.log("in DoOCR()");
+    //     fetch('/document/ocr/' + id)
+    //         .then(response =>
+    //         {
+    //             if (!response.ok)
+    //             {
+    //                 throw new Error('Network response was not ok');
+    //             }
+    //             //return response.json();
+    //         })
+    //         .then(data =>
+    //         {
+    //             //console.log(data);
+    //             //document.getElementById('output').innerText = JSON.stringify(data);
+    //         })
+    //         .catch(error =>
+    //         {
+    //             console.error('There has been a problem with your fetch operation:', error);
+    //         });
+    // }
+
+}
