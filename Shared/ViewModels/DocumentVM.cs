@@ -1,8 +1,8 @@
 ﻿namespace SharedLib.Models
 {
-    public record DocumentModel
+    public record DocumentVM
     {
-        public DocumentModel()
+        public DocumentVM()
         {
             OCRText = "";
             //User = null;

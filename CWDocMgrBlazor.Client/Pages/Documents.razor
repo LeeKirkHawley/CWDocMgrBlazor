@@ -3,12 +3,16 @@
 
 <h3>Documents</h3>
 
+<NavLink class="btn btn-primary action-button" href="/document/upload">
+    Upload Document
+</NavLink>
+
 <DocumentList Documents="documents"></DocumentList>
 
 @code {
-    List<DocumentModel> documents = new List<DocumentModel>
+    List<DocumentVM> documents = new List<DocumentVM>
     {
-        new DocumentModel
+        new DocumentVM
         {
             DocumentName = "Document1",
             OriginalDocumentName = "OriginalDocument1",

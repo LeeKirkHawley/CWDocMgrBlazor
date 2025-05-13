@@ -1,0 +1,53 @@
+﻿@page "/document/upload"
+@using SharedLib.Models
+@inject HttpClient Http
+@inject NavigationManager Navigation
+<h3>DocumentUpload</h3>
+
+<EditForm Model="document" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="mb-3">
+        <label for="DocumentName" class="form-label">Document Name</label>
+        <InputText id="DocumentName" class="form-control" @bind-Value="document.DocumentName" />
+    </div>
+    <div class="mb-3">
+        <label for="OriginalDocumentName" class="form-label">Original Document Name</label>
+        <InputText id="OriginalDocumentName" class="form-control" @bind-Value="document.OriginalDocumentName" />
+    </div>
+    <div class="mb-3">
+        <label for="DocumentDate" class="form-label">Document Date</label>
+        <InputDate id="DocumentDate" class="form-control" @bind-Value="document.DocumentDate" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Document</button>
+</EditForm>
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <div class="alert alert-info mt-2">@message</div>
+}
+
+@code {
+    private DocumentVM document = new()
+        {
+            DocumentDate = DateTime.Now,
+            DocumentName = string.Empty,
+            OriginalDocumentName = string.Empty
+        };
+    private string? message;
+
+    private async Task HandleValidSubmit()
+    {
+        var response = await Http.PostAsJsonAsync("api/documents", document);
+        if (response.IsSuccessStatusCode)
+        {
+            message = "Document added successfully!";
+            Navigation.NavigateTo("/documents");
+        }
+        else
+        {
+            message = "Error adding document.";
+        }
+    }
+}
