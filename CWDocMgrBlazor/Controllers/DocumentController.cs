@@ -3,6 +3,7 @@ using CWDocMgrBlazor.Data;
 using SharedLib.Models;
 using System.IO;
 using CWDocMgrBlazor.Models;
+using System.Security.Claims;
 
 namespace CWDocMgrBlazor.Controllers
 {
@@ -12,11 +13,13 @@ namespace CWDocMgrBlazor.Controllers
     {
         private readonly ApplicationDbContext _db;
         private readonly IWebHostEnvironment _env;
+        private readonly IConfiguration _config;
 
-        public DocumentsController(ApplicationDbContext db, IWebHostEnvironment env)
+        public DocumentsController(ApplicationDbContext db, IWebHostEnvironment env, IConfiguration config)
         {
             _db = db;
             _env = env;
+            _config = config;
         }
 
         [HttpPost("upload")]
@@ -26,8 +29,10 @@ namespace CWDocMgrBlazor.Controllers
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
 
-            string uploadsFolder = "C:\\Temp\\UploadedDocuments";
+            var uploadsFolder = _config["UploadSettings:UploadsFolder"] ?? "C:\\Temp\\UploadedDocuments";
             Directory.CreateDirectory(uploadsFolder);
+
+            string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             string fileExtension = Path.GetExtension(OriginalDocumentName);
             string fileName = Guid.NewGuid().ToString();
@@ -44,7 +49,7 @@ namespace CWDocMgrBlazor.Controllers
                 DocumentName = filePath,
                 OriginalDocumentName = OriginalDocumentName,
                 DocumentDate = DateTime.Now,
-                UserId = "0" // Replace with actual user ID if needed
+                UserId = userId ?? "0"
             };
 
             _db.Documents.Add(document);
