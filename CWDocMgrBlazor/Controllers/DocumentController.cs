@@ -29,7 +29,10 @@ namespace CWDocMgrBlazor.Controllers
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
 
-            var uploadsFolder = _config["UploadSettings:UploadsFolder"] ?? "C:\\Temp\\UploadedDocuments";
+            string? uploadsFolder = _config["UploadSettings:UploadsFolder"];
+            if(uploadsFolder == null)
+                return Problem("No configured upload folder.");
+
             Directory.CreateDirectory(uploadsFolder);
 
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
