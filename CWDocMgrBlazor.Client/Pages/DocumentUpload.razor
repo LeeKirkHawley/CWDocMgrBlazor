@@ -13,7 +13,6 @@
      <div>
         <div class="row">
             <div class="col-4 text-center">
-@*                 <input type="file" name="files" /> *@
                 <InputFile OnChange="OnInputFileChange" />
             </div>
             <div class="col-4 text-center">
@@ -48,9 +47,7 @@
         }
 
         var content = new MultipartFormDataContent();
-        //content.Add(new StringContent(selectedFile.Name), "DocumentName");
         content.Add(new StringContent(selectedFile.Name), "OriginalDocumentName");
-        content.Add(new StringContent(DateTime.Now.ToString()), "DocumentDate");
 
         var stream = selectedFile.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024); // 10 MB limit
         content.Add(new StreamContent(stream), "file", selectedFile.Name);

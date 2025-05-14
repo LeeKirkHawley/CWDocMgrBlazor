@@ -40,6 +40,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
+builder.Services.AddControllers();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -65,52 +67,9 @@ app.MapRazorComponents<App>()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(CWDocMgrBlazor.Client._Imports).Assembly);
 
+app.MapControllers();
+
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
-
-
-app.MapPost("/api/documents/upload", async (HttpRequest request, ApplicationDbContext db, IWebHostEnvironment env) =>
-{
-    string uploadsFolder = "C:\\Temp\\UploadedDocuments";
-
-
-    var form = await request.ReadFormAsync();
-    var file = form.Files["file"];
-    var documentName = form["DocumentName"];
-    var originalDocumentName = form["OriginalDocumentName"];
-    var documentDate = DateTime.Parse(form["DocumentDate"]);
-
-    if (file is null || file.Length == 0)
-        return Results.BadRequest("No file uploaded.");
-
-    string fileExtension = Path.GetExtension(originalDocumentName);
-    string fileName = Guid.NewGuid().ToString();
-    string newFileName = $"{fileName}{fileExtension}";
-
-
-    // Save file to disk (or process as needed)
-    //var uploads = Path.Combine(env.ContentRootPath, "UploadedDocuments");
-    Directory.CreateDirectory(uploadsFolder);
-    var filePath = Path.Combine(uploadsFolder, newFileName);
-
-    using (var stream = System.IO.File.Create(filePath))
-    {
-        await file.CopyToAsync(stream);
-    }
-
-    // Save document metadata to DB
-    var document = new DocumentModel
-    {
-        DocumentName = documentName!,
-        OriginalDocumentName = originalDocumentName!,
-        DocumentDate = documentDate,
-        // Set other properties as needed
-    };
-
-    //db.Documents.Add(document);
-    //await db.SaveChangesAsync();
-
-    return Results.Ok(new { document.Id });
-});
 
 app.Run();
