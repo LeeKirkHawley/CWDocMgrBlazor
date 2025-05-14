@@ -1,5 +1,7 @@
 ﻿@page "/documents"
 @using CWDocMgrBlazor.Client.Shared
+@using SharedLib.Models
+@inject HttpClient Http
 
 <NavLink class="btn btn-primary action-button" href="/document/upload">
     Upload Document
@@ -8,14 +10,11 @@
 <DocumentList Documents="documents"></DocumentList>
 
 @code {
-    List<DocumentVM> documents = new List<DocumentVM>
+    List<DocumentVM> documents = new();
+
+    protected override async Task OnInitializedAsync()
     {
-        new DocumentVM
-        {
-            DocumentName = "Document1",
-            OriginalDocumentName = "OriginalDocument1",
-            DateString = DateTime.Now.ToString("yyyy-MM-dd"),
-            DocumentDate = DateTime.Now
-        }
-    };
+        documents = await Http.GetFromJsonAsync<List<DocumentVM>>("api/documents") ?? new();
+    }
+
 }

@@ -4,6 +4,7 @@ using SharedLib.Models;
 using System.IO;
 using CWDocMgrBlazor.Models;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace CWDocMgrBlazor.Controllers
 {
@@ -20,6 +21,13 @@ namespace CWDocMgrBlazor.Controllers
             _db = db;
             _env = env;
             _config = config;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<DocumentModel>>> GetAll()
+        {
+            var docs = await _db.Documents.ToListAsync();
+            return Ok(docs);
         }
 
         [HttpPost("upload")]
