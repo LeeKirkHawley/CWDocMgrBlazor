@@ -30,6 +30,41 @@ namespace CWDocMgrBlazor.Controllers
             return Ok(docs);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            DocumentModel? document = await _db.Documents.FirstOrDefaultAsync(m => m.Id == id);
+            if (document == null)
+                return NotFound();
+
+            string? base64FileContent = null;
+            string documentFilePath = _config["DocumentStorePath"] + "/" + document.DocumentName;
+            if (System.IO.File.Exists(documentFilePath))
+            {
+                byte[] fileBytes = System.IO.File.ReadAllBytes(documentFilePath);
+                base64FileContent = $"data:image/jpeg;base64,{Convert.ToBase64String(fileBytes)}";
+            }
+
+//            string ocrText = _ocrService.GetOcrFileText(documentFilePath);
+
+            DocumentVM docDetailsVM = new DocumentVM
+            {
+                Id = document.Id,
+                UserId = document.UserId,
+                DocumentName = document.DocumentName,
+                DocumentDate = document.DocumentDate,
+                OriginalDocumentName = document.OriginalDocumentName,
+                FileContent = base64FileContent,
+                OCRText = ""
+            };
+
+            return Ok(docDetailsVM);
+        }
+
+
         [HttpPost("upload")]
         [RequestSizeLimit(10_000_000)] // 10 MB, adjust as needed
         public async Task<IActionResult> Upload([FromForm] string OriginalDocumentName, [FromForm] IFormFile file)
@@ -37,7 +72,7 @@ namespace CWDocMgrBlazor.Controllers
             if (file == null || file.Length == 0)
                 return BadRequest("No file uploaded.");
 
-            string? uploadsFolder = _config["UploadSettings:UploadsFolder"];
+            string? uploadsFolder = _config["UploadsFolder"];
             if(uploadsFolder == null)
                 return Problem("No configured upload folder.");
 
@@ -57,7 +92,7 @@ namespace CWDocMgrBlazor.Controllers
 
             var document = new DocumentModel
             {
-                DocumentName = filePath,
+                DocumentName = newFileName,
                 OriginalDocumentName = OriginalDocumentName,
                 DocumentDate = DateTime.Now,
                 UserId = userId ?? "0"

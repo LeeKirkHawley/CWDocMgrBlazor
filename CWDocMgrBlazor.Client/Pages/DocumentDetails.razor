@@ -1,0 +1,44 @@
+﻿@page "/documents/details/{Id:int}"
+@rendermode InteractiveWebAssembly
+@using SharedLib.Models
+@inject HttpClient Http
+
+<h3>Document Details</h3>
+
+@if (document == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="card" style="max-width: 600px;">
+        <div class="card-body">
+            <h5 class="card-title">@document.OriginalDocumentName</h5>
+            <p><strong>Document Name:</strong> @document.DocumentName</p>
+            <p><strong>Date:</strong> @document.DocumentDate.ToString("yyyy-MM-dd")</p>
+            <p><strong>User ID:</strong> @document.UserId</p>
+            @if (!string.IsNullOrEmpty(document.OCRText))
+            {
+                <p><strong>OCR Text:</strong> @document.OCRText</p>
+            }
+            @if (!string.IsNullOrEmpty(document.FileContent))
+            {
+                <img src="@document.FileContent" alt="Document Image" style="max-width:100%; max-height:400px;" />
+            }
+            else
+            {
+                <p><em>No image available.</em></p>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+    private DocumentVM? document;
+
+    protected override async Task OnInitializedAsync()
+    {
+        document = await Http.GetFromJsonAsync<DocumentVM>($"api/documents/{Id}");
+    }
+}

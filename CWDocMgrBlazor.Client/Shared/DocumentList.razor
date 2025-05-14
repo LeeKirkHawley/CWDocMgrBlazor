@@ -14,7 +14,7 @@
         {
             <tr class="document-table">
                 <td>@doc.OriginalDocumentName</td>
-                <td><a href="@("/documents/details/{doc.Id}")">@doc.DocumentName</a></td>
+                <td><NavLink href=@($"/documents/details/{doc.Id}")>@doc.DocumentName</NavLink></td>
                 <td>@doc.DateString</td>
                 <td>
                     <a asp-controller="Document" asp-action="Edit" asp-route-id="@doc.Id">Edit</a> |
