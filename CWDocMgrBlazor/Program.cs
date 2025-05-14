@@ -4,6 +4,10 @@ using CWDocMgrBlazor.Client.Pages;
 using CWDocMgrBlazor.Components;
 using CWDocMgrBlazor.Components.Account;
 using CWDocMgrBlazor.Data;
+using Microsoft.AspNetCore.Http;
+using SharedLib.DTOs;
+using SharedLib.Models;
+using CWDocMgrBlazor.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,5 +67,50 @@ app.MapRazorComponents<App>()
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
+
+
+app.MapPost("/api/documents/upload", async (HttpRequest request, ApplicationDbContext db, IWebHostEnvironment env) =>
+{
+    string uploadsFolder = "C:\\Temp\\UploadedDocuments";
+
+
+    var form = await request.ReadFormAsync();
+    var file = form.Files["file"];
+    var documentName = form["DocumentName"];
+    var originalDocumentName = form["OriginalDocumentName"];
+    var documentDate = DateTime.Parse(form["DocumentDate"]);
+
+    if (file is null || file.Length == 0)
+        return Results.BadRequest("No file uploaded.");
+
+    string fileExtension = Path.GetExtension(originalDocumentName);
+    string fileName = Guid.NewGuid().ToString();
+    string newFileName = $"{fileName}{fileExtension}";
+
+
+    // Save file to disk (or process as needed)
+    //var uploads = Path.Combine(env.ContentRootPath, "UploadedDocuments");
+    Directory.CreateDirectory(uploadsFolder);
+    var filePath = Path.Combine(uploadsFolder, newFileName);
+
+    using (var stream = System.IO.File.Create(filePath))
+    {
+        await file.CopyToAsync(stream);
+    }
+
+    // Save document metadata to DB
+    var document = new DocumentModel
+    {
+        DocumentName = documentName!,
+        OriginalDocumentName = originalDocumentName!,
+        DocumentDate = documentDate,
+        // Set other properties as needed
+    };
+
+    //db.Documents.Add(document);
+    //await db.SaveChangesAsync();
+
+    return Results.Ok(new { document.Id });
+});
 
 app.Run();

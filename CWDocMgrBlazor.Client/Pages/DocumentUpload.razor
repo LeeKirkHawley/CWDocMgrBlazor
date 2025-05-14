@@ -2,26 +2,26 @@
 @using SharedLib.Models
 @inject HttpClient Http
 @inject NavigationManager Navigation
-<h3>DocumentUpload</h3>
+
+<h3>Document Upload</h3>
 
 <EditForm Model="document" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <div class="mb-3">
-        <label for="DocumentName" class="form-label">Document Name</label>
-        <InputText id="DocumentName" class="form-control" @bind-Value="document.DocumentName" />
+
+     <div>
+        <div class="row">
+            <div class="col-4 text-center">
+@*                 <input type="file" name="files" /> *@
+                <InputFile OnChange="OnInputFileChange" />
+            </div>
+            <div class="col-4 text-center">
+                <button type="submit">Upload</button>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="OriginalDocumentName" class="form-label">Original Document Name</label>
-        <InputText id="OriginalDocumentName" class="form-control" @bind-Value="document.OriginalDocumentName" />
-    </div>
-    <div class="mb-3">
-        <label for="DocumentDate" class="form-label">Document Date</label>
-        <InputDate id="DocumentDate" class="form-control" @bind-Value="document.DocumentDate" />
-    </div>
-    <button type="submit" class="btn btn-primary">Add Document</button>
-</EditForm>
+ </EditForm>
 
 @if (!string.IsNullOrEmpty(message))
 {
@@ -29,6 +29,8 @@
 }
 
 @code {
+    private IBrowserFile? selectedFile;
+
     private DocumentVM document = new()
         {
             DocumentDate = DateTime.Now,
@@ -39,7 +41,22 @@
 
     private async Task HandleValidSubmit()
     {
-        var response = await Http.PostAsJsonAsync("api/documents", document);
+        if (selectedFile is null)
+        {
+            message = "Please select a file.";
+            return;
+        }
+
+        var content = new MultipartFormDataContent();
+        //content.Add(new StringContent(selectedFile.Name), "DocumentName");
+        content.Add(new StringContent(selectedFile.Name), "OriginalDocumentName");
+        content.Add(new StringContent(DateTime.Now.ToString()), "DocumentDate");
+
+        var stream = selectedFile.OpenReadStream(maxAllowedSize: 10 * 1024 * 1024); // 10 MB limit
+        content.Add(new StreamContent(stream), "file", selectedFile.Name);
+
+
+        var response = await Http.PostAsync("api/documents/upload", content);
         if (response.IsSuccessStatusCode)
         {
             message = "Document added successfully!";
@@ -49,5 +66,10 @@
         {
             message = "Error adding document.";
         }
+    }
+
+    private void OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        selectedFile = e.File;
     }
 }
