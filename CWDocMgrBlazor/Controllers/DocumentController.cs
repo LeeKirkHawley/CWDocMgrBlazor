@@ -41,7 +41,7 @@ namespace CWDocMgrBlazor.Controllers
                 return NotFound();
 
             string? base64FileContent = null;
-            string documentFilePath = _config["DocumentStorePath"] + "/" + document.DocumentName;
+            string documentFilePath = _config["UploadsFolder"] + "/" + document.DocumentName;
             if (System.IO.File.Exists(documentFilePath))
             {
                 byte[] fileBytes = System.IO.File.ReadAllBytes(documentFilePath);
