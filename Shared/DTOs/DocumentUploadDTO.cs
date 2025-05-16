@@ -9,9 +9,7 @@ namespace SharedLib.DTOs
 {
     public class DocumentUploadDto
     {
-        public string DocumentName { get; set; } = string.Empty;
         public string OriginalDocumentName { get; set; } = string.Empty;
-        public DateTime DocumentDate { get; set; }
         public IFormFile File { get; set; } = default!;
     }
 }
