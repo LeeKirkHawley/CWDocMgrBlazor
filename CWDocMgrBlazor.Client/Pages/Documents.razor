@@ -14,7 +14,15 @@
 
     protected override async Task OnInitializedAsync()
     {
-        documents = await Http.GetFromJsonAsync<List<DocumentVM>>("api/documents") ?? new();
+        try
+        {
+            documents = await Http.GetFromJsonAsync<List<DocumentVM>>("api/documents") ?? new();
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Error fetching documents: {ex.Message}");
+            documents = new();
+        }
     }
 
 }
