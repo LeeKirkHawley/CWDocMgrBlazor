@@ -5,6 +5,7 @@ using System.IO;
 using CWDocMgrBlazor.Models;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using SharedLib.DTOs;
 
 namespace CWDocMgrBlazor.Controllers
 {
@@ -67,9 +68,9 @@ namespace CWDocMgrBlazor.Controllers
 
         [HttpPost("upload")]
         [RequestSizeLimit(10_000_000)] // 10 MB, adjust as needed
-        public async Task<IActionResult> Upload([FromForm] string OriginalDocumentName, [FromForm] IFormFile file)
+        public async Task<IActionResult> Upload([FromForm] DocumentUploadDto dto)
         {
-            if (file == null || file.Length == 0)
+            if (dto.File == null || dto.File.Length == 0)
                 return BadRequest("No file uploaded.");
 
             string? uploadsFolder = _config["UploadsFolder"];
@@ -80,20 +81,20 @@ namespace CWDocMgrBlazor.Controllers
 
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            string fileExtension = Path.GetExtension(OriginalDocumentName);
+            string fileExtension = Path.GetExtension(dto.OriginalDocumentName);
             string fileName = Guid.NewGuid().ToString();
             string newFileName = $"{fileName}{fileExtension}";
             var filePath = Path.Combine(uploadsFolder, newFileName);
 
             using (var stream = System.IO.File.Create(filePath))
             {
-                await file.CopyToAsync(stream);
+                await dto.File.CopyToAsync(stream);
             }
 
             var document = new DocumentModel
             {
                 DocumentName = newFileName,
-                OriginalDocumentName = OriginalDocumentName,
+                OriginalDocumentName = dto.OriginalDocumentName,
                 DocumentDate = DateTime.Now,
                 UserId = userId ?? "0"
             };

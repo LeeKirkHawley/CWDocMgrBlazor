@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
     <ProjectReference Include="..\CWDocMgrBlazor.Client\CWDocMgrBlazor.Client.csproj" />
     <ProjectReference Include="..\Shared\SharedLib.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.2" />
