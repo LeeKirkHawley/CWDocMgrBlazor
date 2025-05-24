@@ -16,14 +16,13 @@
                 <td>@doc.OriginalDocumentName</td>
                 <td><NavLink href=@($"/documents/details/{doc.Id}")>@doc.DocumentName</NavLink></td>
                 <td>@doc.DateString</td>
-                <td>
-                    <a asp-controller="Document" asp-action="Edit" asp-route-id="@doc.Id">Edit</a> |
-                    <a asp-controller="Document" asp-action="Details" asp-route-id="@doc.Id">Details</a> |
-                    <a asp-controller="Document" asp-action="Delete" asp-route-id="@doc.Id">Delete</a> |
-                    @* <a asp-controller="Document" asp-action="Ocr" asp-route-id="@doc.Id">OCR</a> *@
-                    @* <asp:button OnClick="doOCR(@doc.Id)">OCR</asp:button> *@
-                    <button type="button" class="link-button" onclick="doOCR(@doc.Id)">OCR</button>
-                </td>
+                @* <td><NavLink href=@($"/documents/details/{doc.Id}")>Details</NavLink></td> *@
+                <td><button class="btn btn-link action-item" href=@($"/documents/details/{doc.Id}")>Details</button></td>
+                <td><button class="btn btn-link action-item" @onclick="() => DeleteDocument(doc.Id)">Delete</button></td>
+
+                @* <a asp-controller="Document" asp-action="Edit" asp-route-id="@doc.Id">Edit</a> *@
+                @* <td><button class="btn btn-link" onclick="doOCR(@doc.Id)">OCR</button></td> *@
+
             </tr>
         }
     </tbody>
@@ -32,6 +31,28 @@
 
 @code {
     [Parameter] public List<DocumentVM> Documents { get; set; } = new List<DocumentVM>();
+
+    [Inject] private HttpClient Http { get; set; }
+
+    private async Task DeleteDocument(int id)
+    {
+        var response = await Http.DeleteAsync($"api/documents/{id}");
+        if (response.IsSuccessStatusCode)
+        {
+            // Remove the document from the list and refresh UI
+            var docToRemove = Documents.FirstOrDefault(d => d.Id == id);
+            if (docToRemove != null)
+            {
+                Documents.Remove(docToRemove);
+                StateHasChanged();
+            }
+        }
+        else
+        {
+            // Optionally show an error message
+        }
+    }
+
 
     // function doOCR(id)
     // {

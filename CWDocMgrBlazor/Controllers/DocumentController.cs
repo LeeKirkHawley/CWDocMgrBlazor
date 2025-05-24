@@ -6,6 +6,7 @@ using CWDocMgrBlazor.Models;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using SharedLib.DTOs;
+using Microsoft.AspNetCore.Cors;
 
 namespace CWDocMgrBlazor.Controllers
 {
@@ -25,6 +26,7 @@ namespace CWDocMgrBlazor.Controllers
         }
 
         [HttpGet]
+        [EnableCors]
         public async Task<ActionResult<IEnumerable<DocumentModel>>> GetAll()
         {
             var docs = await _db.Documents.ToListAsync();
@@ -104,5 +106,30 @@ namespace CWDocMgrBlazor.Controllers
 
             return Ok(new { document.Id });
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var document = await _db.Documents.FindAsync(id);
+            if (document == null)
+                return NotFound();
+
+            // Optionally delete the file from disk
+            var uploadsFolder = _config["UploadsFolder"];
+            if (!string.IsNullOrEmpty(uploadsFolder))
+            {
+                var filePath = Path.Combine(uploadsFolder, document.DocumentName);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
+
+            _db.Documents.Remove(document);
+            await _db.SaveChangesAsync();
+
+            return NoContent();
+        }
+
     }
 }
