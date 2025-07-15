@@ -8,8 +8,15 @@ using Microsoft.AspNetCore.Http;
 using SharedLib.DTOs;
 using SharedLib.Models;
 using CWDocMgrBlazor.Models;
+using Serilog;
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog();
 
 builder.Services.AddCors(options =>
 {
@@ -40,6 +47,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddAuthorization();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+Log.Information("ConnectionString: " + connectionString);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

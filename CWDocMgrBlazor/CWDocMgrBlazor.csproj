@@ -8,6 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
     <ProjectReference Include="..\CWDocMgrBlazor.Client\CWDocMgrBlazor.Client.csproj" />
     <ProjectReference Include="..\Shared\SharedLib.csproj" />

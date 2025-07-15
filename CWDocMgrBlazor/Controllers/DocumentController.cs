@@ -17,19 +17,23 @@ namespace CWDocMgrBlazor.Controllers
         private readonly ApplicationDbContext _db;
         private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _config;
+        private readonly ILogger<DocumentsController> _logger;
 
-        public DocumentsController(ApplicationDbContext db, IWebHostEnvironment env, IConfiguration config)
+        public DocumentsController(ApplicationDbContext db, IWebHostEnvironment env, IConfiguration config, ILogger<DocumentsController> logger)
         {
             _db = db;
             _env = env;
             _config = config;
+            _logger = logger;
         }
 
         [HttpGet]
         [EnableCors]
         public async Task<ActionResult<IEnumerable<DocumentModel>>> GetAll()
         {
+            _logger.LogDebug("Retrieving all documents from the database.");
             var docs = await _db.Documents.ToListAsync();
+            _logger.LogDebug("Got em.");
             return Ok(docs);
         }
 
@@ -72,6 +76,8 @@ namespace CWDocMgrBlazor.Controllers
         [RequestSizeLimit(10_000_000)] // 10 MB, adjust as needed
         public async Task<IActionResult> Upload([FromForm] DocumentUploadDto dto)
         {
+            _logger.LogDebug("Uploading file(s)");
+
             if (dto.File == null || dto.File.Length == 0)
                 return BadRequest("No file uploaded.");
 
