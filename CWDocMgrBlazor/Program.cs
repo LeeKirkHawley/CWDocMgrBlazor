@@ -1,20 +1,18 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using CWDocMgrBlazor.Client.Pages;
 using CWDocMgrBlazor.Components;
 using CWDocMgrBlazor.Components.Account;
 using CWDocMgrBlazor.Data;
-using Microsoft.AspNetCore.Http;
-using SharedLib.DTOs;
-using SharedLib.Models;
-using CWDocMgrBlazor.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Serilog;
 
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day)
-    .CreateLogger();
-
 var builder = WebApplication.CreateBuilder(args);
+
+string logFolder = builder.Configuration["LogFolder"];
+string logFileName = logFolder + "\\log-.txt";
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.File(logFileName, rollingInterval: RollingInterval.Day)
+    .CreateLogger();
 
 builder.Host.UseSerilog();
 

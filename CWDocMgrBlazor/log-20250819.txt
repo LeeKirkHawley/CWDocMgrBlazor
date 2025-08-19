@@ -1,0 +1,242 @@
+2025-08-19 07:42:35.311 -07:00 [INF] ConnectionString: Server=(localdb)\mssqllocaldb;Database=aspnet-CWDocMgrBlazor-bb86792c-599b-47eb-aee7-c48a4b68dc30;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True
+2025-08-19 07:42:35.496 -07:00 [INF] User profile is available. Using 'C:\Users\leeki\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-08-19 07:42:36.310 -07:00 [INF] Now listening on: https://localhost:7058
+2025-08-19 07:42:36.310 -07:00 [INF] Now listening on: http://localhost:5046
+2025-08-19 07:42:36.424 -07:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-19 07:42:36.426 -07:00 [INF] Hosting environment: Development
+2025-08-19 07:42:36.426 -07:00 [INF] Content root path: C:\Work\CWDocMgrBlazor\CWDocMgrBlazor
+2025-08-19 07:42:36.929 -07:00 [INF] Request starting HTTP/1.1 GET https://localhost/_framework/debug/ws-proxy?browser=ws%3A%2F%2F127.0.0.1%3A59939%2Fdevtools%2Fbrowser%2F4cc53056-f880-4247-a382-942029a4c1b9 - null null
+2025-08-19 07:42:37.240 -07:00 [INF] Request finished HTTP/1.1 GET https://localhost/_framework/debug/ws-proxy?browser=ws%3A%2F%2F127.0.0.1%3A59939%2Fdevtools%2Fbrowser%2F4cc53056-f880-4247-a382-942029a4c1b9 - 302 0 null 318.9331ms
+2025-08-19 07:42:37.403 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/ - null null
+2025-08-19 07:42:37.503 -07:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-08-19 07:42:37.505 -07:00 [INF] AuthenticationScheme: Identity.Application was challenged.
+2025-08-19 07:42:37.506 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/ - 302 0 null 102.6762ms
+2025-08-19 07:42:37.511 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/Account/Login?ReturnUrl=%2F - null null
+2025-08-19 07:42:37.530 -07:00 [INF] Executing endpoint '/Account/Login (/Account/Login)'
+2025-08-19 07:42:37.674 -07:00 [INF] AuthenticationScheme: Identity.External signed out.
+2025-08-19 07:42:37.677 -07:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-08-19 07:42:37.677 -07:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-08-19 07:42:37.735 -07:00 [INF] Executed endpoint '/Account/Login (/Account/Login)'
+2025-08-19 07:42:37.738 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/lib/bootstrap/dist/css/bootstrap.min.46ein0sx1k.css - null null
+2025-08-19 07:42:37.738 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/CWDocMgrBlazor.pnoei4qdzc.styles.css - null null
+2025-08-19 07:42:37.738 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/app.vzgu9l8av4.css - null null
+2025-08-19 07:42:37.747 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/_framework/blazor.web.js - null null
+2025-08-19 07:42:37.814 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+2025-08-19 07:42:37.944 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/Account/Login?ReturnUrl=%2F - 200 null text/html; charset=utf-8 433.3878ms
+2025-08-19 07:42:37.944 -07:00 [INF] Executing endpoint 'Blazor web static files'
+2025-08-19 07:42:37.944 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:37.944 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:37.944 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/_framework/aspnetcore-browser-refresh.js - null null
+2025-08-19 07:42:37.944 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:37.944 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:37.944 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/_vs/browserLink - null null
+2025-08-19 07:42:38.006 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/_framework/aspnetcore-browser-refresh.js - 200 16513 application/javascript; charset=utf-8 61.3056ms
+2025-08-19 07:42:38.009 -07:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-08-19 07:42:38.010 -07:00 [INF] Executed endpoint 'Blazor web static files'
+2025-08-19 07:42:38.010 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/_framework/blazor.web.js - 304 null text/javascript 262.9352ms
+2025-08-19 07:42:38.014 -07:00 [INF] Sending file. Request path: 'CWDocMgrBlazor.pnoei4qdzc.styles.css'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor\obj\Debug\net9.0\compressed\fklzpqpf6k-pnoei4qdzc.gz'
+2025-08-19 07:42:38.015 -07:00 [INF] Sending file. Request path: 'app.vzgu9l8av4.css'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor\obj\Debug\net9.0\compressed\n74ss14zay-vzgu9l8av4.gz'
+2025-08-19 07:42:38.015 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:38.015 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:38.015 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/CWDocMgrBlazor.pnoei4qdzc.styles.css - 200 95 text/css 276.6728ms
+2025-08-19 07:42:38.015 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/app.vzgu9l8av4.css - 200 3016 text/css 276.3885ms
+2025-08-19 07:42:38.015 -07:00 [INF] Sending file. Request path: 'lib/bootstrap/dist/js/bootstrap.bundle.min.js'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor\obj\Debug\net9.0\compressed\zdzi14yz38-493y06b0oq.gz'
+2025-08-19 07:42:38.017 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:38.017 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/CWDocMgrBlazor.Client.joronbf2rk.bundle.scp.css - null null
+2025-08-19 07:42:38.017 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 200 80764 text/javascript 203.1122ms
+2025-08-19 07:42:38.018 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:38.018 -07:00 [INF] Sending file. Request path: 'lib/bootstrap/dist/css/bootstrap.min.46ein0sx1k.css'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor\obj\Debug\net9.0\compressed\p3x3fjxcqd-46ein0sx1k.gz'
+2025-08-19 07:42:38.018 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:38.019 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/lib/bootstrap/dist/css/bootstrap.min.46ein0sx1k.css - 200 232871 text/css 280.6034ms
+2025-08-19 07:42:38.019 -07:00 [INF] Sending file. Request path: 'CWDocMgrBlazor.Client.joronbf2rk.bundle.scp.css'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor.Client\obj\Debug\net9.0\compressed\f7h1sfzqh3-joronbf2rk.gz'
+2025-08-19 07:42:38.019 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:38.019 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/CWDocMgrBlazor.Client.joronbf2rk.bundle.scp.css - 200 8354 text/css 2.2763ms
+2025-08-19 07:42:38.028 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/_vs/browserLink - 200 null text/javascript; charset=UTF-8 84.1731ms
+2025-08-19 07:42:38.072 -07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7058/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - null null
+2025-08-19 07:42:38.120 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:38.127 -07:00 [INF] Sending file. Request path: 'lib/bootstrap/dist/js/bootstrap.bundle.min.js.map'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor\obj\Debug\net9.0\compressed\ei4i8wsha3-iovd86k7lj.gz'
+2025-08-19 07:42:38.127 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:38.127 -07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7058/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map - 200 332173 text/plain 55.742ms
+2025-08-19 07:42:39.775 -07:00 [INF] Request starting HTTP/2 POST https://localhost:7058/Account/Login?ReturnUrl=%2F - application/x-www-form-urlencoded 265
+2025-08-19 07:42:39.781 -07:00 [INF] CORS policy execution successful.
+2025-08-19 07:42:39.787 -07:00 [INF] Executing endpoint '/Account/Login (/Account/Login)'
+2025-08-19 07:42:39.808 -07:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-08-19 07:42:39.808 -07:00 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+2025-08-19 07:42:40.650 -07:00 [INF] Executed DbCommand (32ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2025-08-19 07:42:40.786 -07:00 [INF] Executed DbCommand (4ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2025-08-19 07:42:40.792 -07:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2025-08-19 07:42:40.793 -07:00 [INF] User logged in.
+2025-08-19 07:42:41.154 -07:00 [INF] Executed endpoint '/Account/Login (/Account/Login)'
+2025-08-19 07:42:41.156 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/ - null null
+2025-08-19 07:42:41.157 -07:00 [INF] Request finished HTTP/2 POST https://localhost:7058/Account/Login?ReturnUrl=%2F - 302 null text/html; charset=utf-8 1381.8542ms
+2025-08-19 07:42:41.161 -07:00 [INF] Executing endpoint '/ (/)'
+2025-08-19 07:42:41.186 -07:00 [INF] Executed endpoint '/ (/)'
+2025-08-19 07:42:41.186 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/ - 200 null text/html; charset=utf-8 30.4664ms
+2025-08-19 07:42:41.198 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/lib/bootstrap/dist/css/bootstrap.min.46ein0sx1k.css - null null
+2025-08-19 07:42:41.198 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/CWDocMgrBlazor.pnoei4qdzc.styles.css - null null
+2025-08-19 07:42:41.198 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/_framework/blazor.web.js - null null
+2025-08-19 07:42:41.198 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/app.vzgu9l8av4.css - null null
+2025-08-19 07:42:41.198 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+2025-08-19 07:42:41.198 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/_framework/aspnetcore-browser-refresh.js - null null
+2025-08-19 07:42:41.199 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/_framework/aspnetcore-browser-refresh.js - 200 16513 application/javascript; charset=utf-8 0.8482ms
+2025-08-19 07:42:41.200 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.200 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/_vs/browserLink - null null
+2025-08-19 07:42:41.200 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.200 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.200 -07:00 [INF] Executing endpoint 'Blazor web static files'
+2025-08-19 07:42:41.200 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.201 -07:00 [INF] The file /_framework/blazor.web.js was not modified
+2025-08-19 07:42:41.201 -07:00 [INF] Executed endpoint 'Blazor web static files'
+2025-08-19 07:42:41.201 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/_framework/blazor.web.js - 304 null text/javascript 3.2589ms
+2025-08-19 07:42:41.203 -07:00 [INF] Sending file. Request path: 'app.vzgu9l8av4.css'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor\obj\Debug\net9.0\compressed\n74ss14zay-vzgu9l8av4.gz'
+2025-08-19 07:42:41.206 -07:00 [INF] Sending file. Request path: 'CWDocMgrBlazor.pnoei4qdzc.styles.css'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor\obj\Debug\net9.0\compressed\fklzpqpf6k-pnoei4qdzc.gz'
+2025-08-19 07:42:41.247 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.247 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.247 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/CWDocMgrBlazor.pnoei4qdzc.styles.css - 200 95 text/css 49.4481ms
+2025-08-19 07:42:41.247 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/app.vzgu9l8av4.css - 200 3016 text/css 49.5ms
+2025-08-19 07:42:41.249 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/CWDocMgrBlazor.Client.joronbf2rk.bundle.scp.css - null null
+2025-08-19 07:42:41.250 -07:00 [INF] Sending file. Request path: 'lib/bootstrap/dist/js/bootstrap.bundle.min.js'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor\obj\Debug\net9.0\compressed\zdzi14yz38-493y06b0oq.gz'
+2025-08-19 07:42:41.250 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.250 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 200 80764 text/javascript 51.8006ms
+2025-08-19 07:42:41.252 -07:00 [INF] Sending file. Request path: 'lib/bootstrap/dist/css/bootstrap.min.46ein0sx1k.css'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor\obj\Debug\net9.0\compressed\p3x3fjxcqd-46ein0sx1k.gz'
+2025-08-19 07:42:41.252 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.252 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/lib/bootstrap/dist/css/bootstrap.min.46ein0sx1k.css - 200 232871 text/css 54.4374ms
+2025-08-19 07:42:41.253 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.255 -07:00 [INF] Sending file. Request path: 'CWDocMgrBlazor.Client.joronbf2rk.bundle.scp.css'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor.Client\obj\Debug\net9.0\compressed\f7h1sfzqh3-joronbf2rk.gz'
+2025-08-19 07:42:41.255 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.255 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/CWDocMgrBlazor.Client.joronbf2rk.bundle.scp.css - 200 8354 text/css 6.025ms
+2025-08-19 07:42:41.259 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/_vs/browserLink - 200 null text/javascript; charset=UTF-8 58.5436ms
+2025-08-19 07:42:41.313 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/_framework/dotnet.xcjv9jksfc.js - null null
+2025-08-19 07:42:41.315 -07:00 [INF] CORS policy execution successful.
+2025-08-19 07:42:41.315 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.315 -07:00 [INF] The file _framework/dotnet.xcjv9jksfc.js was not modified
+2025-08-19 07:42:41.316 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.316 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/_framework/dotnet.xcjv9jksfc.js - 304 null text/javascript 2.6133ms
+2025-08-19 07:42:41.324 -07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7058/_framework/dotnet.js.map - null null
+2025-08-19 07:42:41.325 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.333 -07:00 [INF] Sending file. Request path: '_framework/dotnet.js.map'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor.Client\obj\Debug\net9.0\compressed\jnbjn90u6p-vqpbejdyyn.gz'
+2025-08-19 07:42:41.333 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.333 -07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7058/_framework/dotnet.js.map - 200 21067 text/plain 9.1684ms
+2025-08-19 07:42:41.340 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/_framework/blazor.boot.json - null null
+2025-08-19 07:42:41.342 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.345 -07:00 [INF] Sending file. Request path: '_framework/blazor.boot.json'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor.Client\obj\Debug\net9.0\compressed\zdmpnrt3ki-fm8uec7nss.gz'
+2025-08-19 07:42:41.345 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.345 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/_framework/blazor.boot.json - 200 40436 application/json 5.2217ms
+2025-08-19 07:42:41.350 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/_framework/dotnet.native.50iqa8w3ys.js - null null
+2025-08-19 07:42:41.350 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/_framework/dotnet.runtime.ew19f13umk.js - null null
+2025-08-19 07:42:41.351 -07:00 [INF] CORS policy execution successful.
+2025-08-19 07:42:41.351 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.351 -07:00 [INF] The file _framework/dotnet.native.50iqa8w3ys.js was not modified
+2025-08-19 07:42:41.352 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.351 -07:00 [INF] CORS policy execution successful.
+2025-08-19 07:42:41.352 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/_framework/dotnet.native.50iqa8w3ys.js - 304 null text/javascript 1.5997ms
+2025-08-19 07:42:41.352 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.352 -07:00 [INF] The file _framework/dotnet.runtime.ew19f13umk.js was not modified
+2025-08-19 07:42:41.352 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.352 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/_framework/dotnet.runtime.ew19f13umk.js - 304 null text/javascript 2.1538ms
+2025-08-19 07:42:41.374 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/appsettings.json - null null
+2025-08-19 07:42:41.374 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/appsettings.Development.json - null null
+2025-08-19 07:42:41.376 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.376 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.377 -07:00 [INF] Sending file. Request path: 'appsettings.Development.json'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor.Client\obj\Debug\net9.0\compressed\gccn4dnape-tswichycbp.gz'
+2025-08-19 07:42:41.377 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.377 -07:00 [INF] Sending file. Request path: 'appsettings.json'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor.Client\obj\Debug\net9.0\compressed\abeqdn0sjm-tswichycbp.gz'
+2025-08-19 07:42:41.377 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/appsettings.Development.json - 200 160 application/json 2.5412ms
+2025-08-19 07:42:41.377 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.377 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/appsettings.json - 200 160 application/json 2.8673ms
+2025-08-19 07:42:41.397 -07:00 [INF] Request starting HTTP/1.1 GET https://localhost:7058/_framework/dotnet.runtime.js.map - null null
+2025-08-19 07:42:41.397 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.399 -07:00 [INF] Sending file. Request path: '_framework/dotnet.runtime.js.map'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor.Client\obj\Debug\net9.0\compressed\cjq0tptnz3-i8ixevln79.gz'
+2025-08-19 07:42:41.400 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:41.400 -07:00 [INF] Request finished HTTP/1.1 GET https://localhost:7058/_framework/dotnet.runtime.js.map - 200 87809 text/plain 2.9563ms
+2025-08-19 07:42:42.755 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/_framework/blazor-hotreload - null null
+2025-08-19 07:42:42.756 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/_framework/blazor-hotreload - 204 null null 1.0831ms
+2025-08-19 07:42:42.873 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/documents - null null
+2025-08-19 07:42:42.878 -07:00 [INF] Executing endpoint '/documents (/documents)'
+2025-08-19 07:42:46.858 -07:00 [INF] Executed endpoint '/documents (/documents)'
+2025-08-19 07:42:46.860 -07:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.
+   at System.Net.Http.HttpClient.PrepareRequestMessage(HttpRequestMessage request)
+   at System.Net.Http.HttpClient.SendAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at System.Net.Http.Json.HttpClientJsonExtensions.FromJsonAsyncCore[TValue,TJsonOptions](Func`4 getMethod, HttpClient client, Uri requestUri, Func`4 deserializeMethod, TJsonOptions jsonOptions, CancellationToken cancellationToken)
+   at System.Net.Http.Json.HttpClientJsonExtensions.FromJsonAsyncCore[TValue](Func`4 getMethod, HttpClient client, Uri requestUri, JsonSerializerOptions options, CancellationToken cancellationToken)
+   at System.Net.Http.Json.HttpClientJsonExtensions.GetFromJsonAsync[TValue](HttpClient client, String requestUri, CancellationToken cancellationToken)
+   at CWDocMgrBlazor.Client.Pages.Documents.OnInitializedAsync() in C:\Work\CWDocMgrBlazor\CWDocMgrBlazor.Client\Pages\Documents.razor:line 22
+   at Microsoft.AspNetCore.Components.ComponentBase.RunInitAndSetParametersAsync()
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SetDirectParameters(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewComponentFrame(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InitializeNewSubtree(DiffContext& diffContext, Int32 frameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.InsertNewFrame(DiffContext& diffContext, Int32 newFrameIndex)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.AppendDiffEntriesForRange(DiffContext& diffContext, Int32 oldStartIndex, Int32 oldEndIndexExcl, Int32 newStartIndex, Int32 newEndIndexExcl)
+   at Microsoft.AspNetCore.Components.RenderTree.RenderTreeDiffBuilder.ComputeDiff(Renderer renderer, RenderBatchBuilder batchBuilder, Int32 componentId, ArrayRange`1 oldTree, ArrayRange`1 newTree)
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.RenderIntoBatch(RenderBatchBuilder batchBuilder, RenderFragment renderFragment, Exception& renderFragmentException)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.ProcessRenderQueue()
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.AddToRenderQueue(Int32 componentId, RenderFragment renderFragment)
+   at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at Microsoft.AspNetCore.Components.ComponentBase.CallOnParametersSetAsync()
+   at Microsoft.AspNetCore.Components.ComponentBase.RunInitAndSetParametersAsync()
+   at Microsoft.AspNetCore.Components.Rendering.ComponentState.SetDirectParameters(ParameterView parameters)
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.RenderRootComponentAsync(Int32 componentId, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure.StaticHtmlRenderer.BeginRenderingComponent(IComponent component, ParameterView initialParameters)
+   at Microsoft.AspNetCore.Components.Endpoints.EndpointHtmlRenderer.RenderEndpointComponent(HttpContext httpContext, Type rootComponentType, ParameterView parameters, Boolean waitForQuiescence)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Endpoints.RazorComponentEndpointInvoker.RenderComponentCore(HttpContext context)
+   at Microsoft.AspNetCore.Components.Rendering.RendererSynchronizationContext.<>c.<<InvokeAsync>b__10_0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2025-08-19 07:42:46.917 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/documents - 500 null text/html; charset=utf-8 4044.3309ms
+2025-08-19 07:42:49.801 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/ - null null
+2025-08-19 07:42:49.802 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/favicon.ico - null null
+2025-08-19 07:42:49.803 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/favicon.ico - 404 0 null 1.3885ms
+2025-08-19 07:42:49.803 -07:00 [INF] Executing endpoint '/ (/)'
+2025-08-19 07:42:49.804 -07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7058/favicon.ico, Response status code: 404
+2025-08-19 07:42:49.806 -07:00 [INF] Executed endpoint '/ (/)'
+2025-08-19 07:42:49.806 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/ - 200 null text/html; charset=utf-8 4.5748ms
+2025-08-19 07:42:49.809 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/lib/bootstrap/dist/css/bootstrap.min.46ein0sx1k.css - null null
+2025-08-19 07:42:49.809 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/CWDocMgrBlazor.pnoei4qdzc.styles.css - null null
+2025-08-19 07:42:49.809 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/app.vzgu9l8av4.css - null null
+2025-08-19 07:42:49.809 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:49.809 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:49.810 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:49.810 -07:00 [INF] Sending file. Request path: 'CWDocMgrBlazor.pnoei4qdzc.styles.css'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor\obj\Debug\net9.0\compressed\fklzpqpf6k-pnoei4qdzc.gz'
+2025-08-19 07:42:49.810 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:49.810 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/CWDocMgrBlazor.pnoei4qdzc.styles.css - 200 95 text/css 1.5453ms
+2025-08-19 07:42:49.810 -07:00 [INF] Sending file. Request path: 'app.vzgu9l8av4.css'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor\obj\Debug\net9.0\compressed\n74ss14zay-vzgu9l8av4.gz'
+2025-08-19 07:42:49.810 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:49.810 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/app.vzgu9l8av4.css - 200 3016 text/css 1.7608ms
+2025-08-19 07:42:49.814 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/CWDocMgrBlazor.Client.joronbf2rk.bundle.scp.css - null null
+2025-08-19 07:42:49.814 -07:00 [INF] Sending file. Request path: 'lib/bootstrap/dist/css/bootstrap.min.46ein0sx1k.css'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor\obj\Debug\net9.0\compressed\p3x3fjxcqd-46ein0sx1k.gz'
+2025-08-19 07:42:49.814 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:49.814 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/lib/bootstrap/dist/css/bootstrap.min.46ein0sx1k.css - 200 232871 text/css 5.8764ms
+2025-08-19 07:42:49.815 -07:00 [INF] Executing endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:49.816 -07:00 [INF] Sending file. Request path: 'CWDocMgrBlazor.Client.joronbf2rk.bundle.scp.css'. Physical path: 'C:\Work\CWDocMgrBlazor\CWDocMgrBlazor.Client\obj\Debug\net9.0\compressed\f7h1sfzqh3-joronbf2rk.gz'
+2025-08-19 07:42:49.816 -07:00 [INF] Executed endpoint 'Microsoft.AspNetCore.Routing.RouteEndpoint'
+2025-08-19 07:42:49.816 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/CWDocMgrBlazor.Client.joronbf2rk.bundle.scp.css - 200 8354 text/css 2.6553ms
+2025-08-19 07:42:51.396 -07:00 [INF] Request starting HTTP/2 GET https://localhost:7058/api/documents - null null
+2025-08-19 07:42:51.398 -07:00 [INF] Executing endpoint 'CWDocMgrBlazor.Controllers.DocumentsController.GetAll (CWDocMgrBlazor)'
+2025-08-19 07:42:51.422 -07:00 [INF] Route matched with {action = "GetAll", controller = "Documents"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[System.Collections.Generic.IEnumerable`1[CWDocMgrBlazor.Models.DocumentModel]]] GetAll() on controller CWDocMgrBlazor.Controllers.DocumentsController (CWDocMgrBlazor).
+2025-08-19 07:42:51.484 -07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [d].[Id], [d].[DocumentDate], [d].[DocumentName], [d].[OriginalDocumentName], [d].[UserId]
+FROM [Documents] AS [d]
+2025-08-19 07:42:51.503 -07:00 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[CWDocMgrBlazor.Models.DocumentModel, CWDocMgrBlazor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-08-19 07:42:51.511 -07:00 [INF] Executed action CWDocMgrBlazor.Controllers.DocumentsController.GetAll (CWDocMgrBlazor) in 86.836ms
+2025-08-19 07:42:51.511 -07:00 [INF] Executed endpoint 'CWDocMgrBlazor.Controllers.DocumentsController.GetAll (CWDocMgrBlazor)'
+2025-08-19 07:42:51.512 -07:00 [INF] Request finished HTTP/2 GET https://localhost:7058/api/documents - 200 null application/json; charset=utf-8 115.7723ms
