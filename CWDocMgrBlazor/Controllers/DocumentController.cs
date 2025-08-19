@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using SharedLib.DTOs;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CWDocMgrBlazor.Controllers
 {
@@ -29,6 +30,7 @@ namespace CWDocMgrBlazor.Controllers
 
         [HttpGet]
         [EnableCors]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<DocumentModel>>> GetAll()
         {
             _logger.LogDebug("Retrieving all documents from the database.");

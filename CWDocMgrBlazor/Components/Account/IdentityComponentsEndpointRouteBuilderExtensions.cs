@@ -45,7 +45,7 @@ internal static class IdentityComponentsEndpointRouteBuilderExtensions
             [FromQuery] string returnUrl) =>
         {
             await signInManager.SignOutAsync();
-            return TypedResults.Redirect(returnUrl);
+            return TypedResults.LocalRedirect($"~/");
         });
 
 

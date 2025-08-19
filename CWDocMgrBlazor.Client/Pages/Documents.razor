@@ -1,9 +1,10 @@
 ﻿@page "/documents"
 @using CWDocMgrBlazor.Client.Shared
+@using Microsoft.AspNetCore.Authorization
 @using SharedLib.Models
 @inject HttpClient Http
 
-CHANGE IS GOOD
+@attribute [Authorize]
 
 <NavLink class="btn btn-primary action-button" href="/document/upload">
     Upload Document
