@@ -105,7 +105,7 @@ namespace CWDocMgrBlazor.Controllers
             {
                 DocumentName = newFileName,
                 OriginalDocumentName = dto.OriginalDocumentName,
-                DocumentDate = DateTime.Now,
+                DocumentDate = DateTime.UtcNow,
                 UserId = userId ?? "0"
             };
 
