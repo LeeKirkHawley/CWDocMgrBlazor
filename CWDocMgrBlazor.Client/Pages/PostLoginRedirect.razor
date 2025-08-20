@@ -7,7 +7,6 @@
 @code {
     protected override async Task OnInitializedAsync()
     {
-        // Wait for authentication state to be established
         var authState = await AuthStateProvider.GetAuthenticationStateAsync();
         if (authState.User.Identity?.IsAuthenticated == false)
         {
@@ -17,7 +16,7 @@
 
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
-        NavigationManager.NavigateTo("/documents");
+        NavigationManager.NavigateTo("/");
         return Task.CompletedTask;
     }
 }
