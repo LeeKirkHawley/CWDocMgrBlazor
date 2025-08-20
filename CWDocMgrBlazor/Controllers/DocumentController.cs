@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using SharedLib.DTOs;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
+using SharedLib.ViewModels;
+using AutoMapper;
 
 namespace CWDocMgrBlazor.Controllers
 {
@@ -19,24 +21,30 @@ namespace CWDocMgrBlazor.Controllers
         private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _config;
         private readonly ILogger<DocumentsController> _logger;
+        private readonly IMapper _mapper;
 
-        public DocumentsController(ApplicationDbContext db, IWebHostEnvironment env, IConfiguration config, ILogger<DocumentsController> logger)
+        public DocumentsController(ApplicationDbContext db, IWebHostEnvironment env, IConfiguration config, 
+            ILogger<DocumentsController> logger, IMapper mapper)
         {
             _db = db;
             _env = env;
             _config = config;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [EnableCors]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<DocumentModel>>> GetAll()
+        public async Task<ActionResult<IEnumerable<DocumentVM>>> GetAll()
         {
             _logger.LogDebug("Retrieving all documents from the database.");
-            var docs = await _db.Documents.ToListAsync();
+            List<DocumentModel> docs = await _db.Documents.ToListAsync();
+
+            var docVMs = _mapper.Map<List<DocumentVM>>(docs);
+
             _logger.LogDebug("Got em.");
-            return Ok(docs);
+            return Ok(docVMs);
         }
 
         [HttpGet("{id}")]
@@ -59,7 +67,7 @@ namespace CWDocMgrBlazor.Controllers
 
 //            string ocrText = _ocrService.GetOcrFileText(documentFilePath);
 
-            DocumentVM docDetailsVM = new DocumentVM
+            DocumentUploadVM docDetailsVM = new DocumentUploadVM
             {
                 Id = document.Id,
                 UserId = document.UserId,

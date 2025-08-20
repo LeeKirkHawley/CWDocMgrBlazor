@@ -1,3 +1,5 @@
+using AutoMapper;
+using CWDocMgrBlazor;
 using CWDocMgrBlazor.Components;
 using CWDocMgrBlazor.Components.Account;
 using CWDocMgrBlazor.Data;
@@ -35,6 +37,16 @@ builder.Services.AddRazorComponents()
 builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
+
+// Register AutoMapper
+builder.Services.AddSingleton(provider => {
+    var loggerFactory = provider.GetRequiredService<ILoggerFactory>();
+    return CWDocMgrBlazor.Mapper.RegisterMaps(loggerFactory);
+});
+builder.Services.AddSingleton(provider => {
+    var config = provider.GetRequiredService<MapperConfiguration>();
+    return config.CreateMapper();
+});
 
 builder.Services.AddAuthentication(options =>
     {

@@ -35,10 +35,10 @@ else
 
 @code {
     [Parameter] public int Id { get; set; }
-    private DocumentVM? document;
+    private DocumentUploadVM? document;
 
     protected override async Task OnInitializedAsync()
     {
-        document = await Http.GetFromJsonAsync<DocumentVM>($"api/documents/{Id}");
+        document = await Http.GetFromJsonAsync<DocumentUploadVM>($"api/documents/{Id}");
     }
 }
