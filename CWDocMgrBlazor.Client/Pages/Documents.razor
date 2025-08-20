@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Authorization
 @using SharedLib.Models
 @inject HttpClient Http
+@inject AuthenticationStateProvider AuthStateProvider
 
 @attribute [Authorize]
 
@@ -19,7 +20,12 @@
     {
         try
         {
-            documents = await Http.GetFromJsonAsync<List<DocumentVM>>("api/documents") ?? new();
+            AuthenticationState authState = await AuthStateProvider.GetAuthenticationStateAsync();
+            if (authState.User.Identity?.IsAuthenticated == true && Http.BaseAddress != null)
+            {
+                Console.WriteLine($"HttpClient.BaseAddress: {Http.BaseAddress}");
+                documents = await Http.GetFromJsonAsync<List<DocumentVM>>("api/documents") ?? new();
+            }
         }
         catch (HttpRequestException ex)
         {

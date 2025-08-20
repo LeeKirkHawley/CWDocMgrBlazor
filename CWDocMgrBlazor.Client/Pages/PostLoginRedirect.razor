@@ -1,0 +1,23 @@
+﻿@page "/post-login-redirect"
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthStateProvider
+
+<p>Signing you in...</p>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        // Wait for authentication state to be established
+        var authState = await AuthStateProvider.GetAuthenticationStateAsync();
+        if (authState.User.Identity?.IsAuthenticated == false)
+        {
+            NavigationManager.NavigateTo("Account/Login", forceLoad: true);
+        }
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+        NavigationManager.NavigateTo("/documents");
+        return Task.CompletedTask;
+    }
+}
