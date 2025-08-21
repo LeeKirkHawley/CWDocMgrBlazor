@@ -40,10 +40,10 @@ namespace CWDocMgrBlazor.Controllers
         {
             _logger.LogDebug("Retrieving all documents from the database.");
             List<DocumentModel> docs = await _db.Documents.ToListAsync();
+            _logger.LogDebug($"Got {docs.Count} documents.");
 
             var docVMs = _mapper.Map<List<DocumentVM>>(docs);
 
-            _logger.LogDebug("Got em.");
             return Ok(docVMs);
         }
 
