@@ -48,35 +48,23 @@ namespace CWDocMgrBlazor.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? Id)
         {
-            if (id == null)
+            if (Id == null)
                 return NotFound();
 
-            DocumentModel? document = await _db.Documents.FirstOrDefaultAsync(m => m.Id == id);
+            var document = await _documentService.GetDocumentById(Id.Value);
             if (document == null)
                 return NotFound();
 
-            string? base64FileContent = null;
-            string documentFilePath = _config["UploadsFolder"] + "/" + document.DocumentName;
-            if (System.IO.File.Exists(documentFilePath))
-            {
-                byte[] fileBytes = System.IO.File.ReadAllBytes(documentFilePath);
-                base64FileContent = $"data:image/jpeg;base64,{Convert.ToBase64String(fileBytes)}";
-            }
+            await _documentService.GetDocumentById(Id.Value);
 
-//            string ocrText = _ocrService.GetOcrFileText(documentFilePath);
+            string? base64FileContent = await _documentService.GetDocumentFileContent(document);
+            if(base64FileContent == null)
+                return NotFound($"Document file {document.DocumentName} not found.");
 
-            DocumentUploadVM docDetailsVM = new DocumentUploadVM
-            {
-                Id = document.Id,
-                UserId = document.UserId,
-                DocumentName = document.DocumentName,
-                DocumentDate = document.DocumentDate,
-                OriginalDocumentName = document.OriginalDocumentName,
-                FileContent = base64FileContent,
-                OCRText = ""
-            };
+            DocumentUploadVM docDetailsVM = _mapper.Map<DocumentUploadVM>(document);
+            docDetailsVM.FileContent = base64FileContent;
 
             return Ok(docDetailsVM);
         }
