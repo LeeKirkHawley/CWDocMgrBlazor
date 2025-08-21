@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
 using SharedLib.ViewModels;
 using AutoMapper;
+using CWDocMgrBlazor.Services;
 
 namespace CWDocMgrBlazor.Controllers
 {
@@ -22,15 +23,17 @@ namespace CWDocMgrBlazor.Controllers
         private readonly IConfiguration _config;
         private readonly ILogger<DocumentsController> _logger;
         private readonly IMapper _mapper;
+        private readonly DocumentService _documentService;
 
         public DocumentsController(ApplicationDbContext db, IWebHostEnvironment env, IConfiguration config, 
-            ILogger<DocumentsController> logger, IMapper mapper)
+            ILogger<DocumentsController> logger, IMapper mapper, DocumentService documentService)
         {
             _db = db;
             _env = env;
             _config = config;
             _logger = logger;
             _mapper = mapper;
+            _documentService = documentService;
         }
 
         [HttpGet]
@@ -38,11 +41,8 @@ namespace CWDocMgrBlazor.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<DocumentVM>>> GetAll()
         {
-            _logger.LogDebug("Retrieving all documents from the database.");
-            List<DocumentModel> docs = await _db.Documents.ToListAsync();
-            _logger.LogDebug($"Got {docs.Count} documents.");
-
-            var docVMs = _mapper.Map<List<DocumentVM>>(docs);
+            List<DocumentModel> documents = await _documentService.GetAllDocuments();
+            List<DocumentVM> docVMs = _mapper.Map<List<DocumentVM>>(documents);
 
             return Ok(docVMs);
         }
