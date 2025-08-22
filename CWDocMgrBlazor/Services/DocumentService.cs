@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using CWDocMgrBlazor.Data;
+﻿using CWDocMgrBlazor.Data;
 using CWDocMgrBlazor.Models;
+using Microsoft.EntityFrameworkCore;
+using SharedLib.DTOs;
+using System.Security.Claims;
 
 namespace CWDocMgrBlazor.Services
 {
@@ -55,5 +57,49 @@ namespace CWDocMgrBlazor.Services
 
             return base64FileContent;
         }
+
+        public async Task<DocumentModel> UploadFile(DocumentUploadDto dto, string uploadsFolder, string? userId)
+        {
+            Directory.CreateDirectory(uploadsFolder);
+
+            string fileExtension = Path.GetExtension(dto.OriginalDocumentName);
+            string fileName = Guid.NewGuid().ToString();
+            string newFileName = $"{fileName}{fileExtension}";
+            var filePath = Path.Combine(uploadsFolder, newFileName);
+
+            using (var stream = System.IO.File.Create(filePath))
+            {
+                await dto.File.CopyToAsync(stream);
+            }
+
+            var document = new DocumentModel
+            {
+                DocumentName = newFileName,
+                OriginalDocumentName = dto.OriginalDocumentName,
+                DocumentDate = DateTime.UtcNow,
+                UserId = userId ?? "0"
+            };
+
+            _db.Documents.Add(document);
+            await _db.SaveChangesAsync();
+            return document;
+        }
+
+        public async Task DeleteDocument(DocumentModel document)
+        {
+            var uploadsFolder = _config["UploadsFolder"];
+            if (!string.IsNullOrEmpty(uploadsFolder))
+            {
+                var filePath = Path.Combine(uploadsFolder, document.DocumentName);
+                if (System.IO.File.Exists(filePath))
+                {
+                    System.IO.File.Delete(filePath);
+                }
+            }
+
+            _db.Documents.Remove(document);
+            await _db.SaveChangesAsync();
+        }
+
     }
 }

@@ -80,33 +80,12 @@ namespace CWDocMgrBlazor.Controllers
                 return BadRequest("No file uploaded.");
 
             string? uploadsFolder = _config["UploadsFolder"];
-            if(uploadsFolder == null)
+            if (uploadsFolder == null)
                 return Problem("No configured upload folder.");
-
-            Directory.CreateDirectory(uploadsFolder);
 
             string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            string fileExtension = Path.GetExtension(dto.OriginalDocumentName);
-            string fileName = Guid.NewGuid().ToString();
-            string newFileName = $"{fileName}{fileExtension}";
-            var filePath = Path.Combine(uploadsFolder, newFileName);
-
-            using (var stream = System.IO.File.Create(filePath))
-            {
-                await dto.File.CopyToAsync(stream);
-            }
-
-            var document = new DocumentModel
-            {
-                DocumentName = newFileName,
-                OriginalDocumentName = dto.OriginalDocumentName,
-                DocumentDate = DateTime.UtcNow,
-                UserId = userId ?? "0"
-            };
-
-            _db.Documents.Add(document);
-            await _db.SaveChangesAsync();
+            DocumentModel document = await _documentService.UploadFile(dto, uploadsFolder, userId);
 
             return Ok(new { document.Id });
         }
@@ -118,22 +97,9 @@ namespace CWDocMgrBlazor.Controllers
             if (document == null)
                 return NotFound();
 
-            // Optionally delete the file from disk
-            var uploadsFolder = _config["UploadsFolder"];
-            if (!string.IsNullOrEmpty(uploadsFolder))
-            {
-                var filePath = Path.Combine(uploadsFolder, document.DocumentName);
-                if (System.IO.File.Exists(filePath))
-                {
-                    System.IO.File.Delete(filePath);
-                }
-            }
-
-            _db.Documents.Remove(document);
-            await _db.SaveChangesAsync();
+            await _documentService.DeleteDocument(document);
 
             return NoContent();
         }
-
     }
 }
