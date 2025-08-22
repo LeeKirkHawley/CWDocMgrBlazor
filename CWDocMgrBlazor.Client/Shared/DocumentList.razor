@@ -1,5 +1,6 @@
 ﻿@using SharedLib.Models
 @using SharedLib.ViewModels
+@using Microsoft.AspNetCore.Components.Routing
 
 <table class="table document-table">
     <thead>
@@ -15,11 +16,10 @@
         {
             <tr class="document-table">
                 <td>@doc.OriginalDocumentName</td>
-                <td><NavLink href=@($"/documents/details/{doc.Id}")>@doc.DocumentName</NavLink></td>
+                <td>@doc.DocumentName</td>
                 <td>@doc.DocumentDate</td>
-                @* <td><NavLink href=@($"/documents/details/{doc.Id}")>Details</NavLink></td> *@
-                <td><button class="btn btn-link action-item" href=@($"/documents/details/{doc.Id}")>Details</button></td>
-                <td><button class="btn btn-link action-item" @onclick="() => DeleteDocument(doc.Id)">Delete</button></td>
+                <td><button class="btn btn-link action-item" @onclick="() => DocumentDetails(doc.Id)">Details</button>
+                <button class="btn btn-link action-item" @onclick="() => DeleteDocument(doc.Id)">Delete</button></td>
 
                 @* <a asp-controller="Document" asp-action="Edit" asp-route-id="@doc.Id">Edit</a> *@
                 @* <td><button class="btn btn-link" onclick="doOCR(@doc.Id)">OCR</button></td> *@
@@ -35,12 +35,13 @@
 
     [Inject] private HttpClient Http { get; set; }
 
+    [Inject] private NavigationManager NavigationManager { get; set; }
+
     private async Task DeleteDocument(int id)
     {
         var response = await Http.DeleteAsync($"api/documents/{id}");
         if (response.IsSuccessStatusCode)
         {
-            // Remove the document from the list and refresh UI
             var docToRemove = Documents.FirstOrDefault(d => d.Id == id);
             if (docToRemove != null)
             {
@@ -54,6 +55,10 @@
         }
     }
 
+    private void DocumentDetails(int id)
+    {
+        NavigationManager.NavigateTo($"/documents/details/{id}");
+    }
 
     // function doOCR(id)
     // {
