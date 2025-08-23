@@ -115,14 +115,17 @@ namespace CWDocMgrBlazor.Controllers
             var document = await _db.Documents.FindAsync(dto.Id);
             if (document == null)
                 return NotFound("Document not found.");
+
             string? uploadsFolder = _config["UploadsFolder"];
             if (uploadsFolder == null)
                 return Problem("No configured upload folder.");
+
             string documentFilePath = Path.Combine(uploadsFolder, document.DocumentName);
             if (!System.IO.File.Exists(documentFilePath))
                 return NotFound("Document file not found.");
 
             string ocrText = await _documentService.OCRDocument(document);
+
             return Ok(new { ocrText });
         }
     }

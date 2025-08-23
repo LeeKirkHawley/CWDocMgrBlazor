@@ -4,6 +4,7 @@ using CWDocMgrBlazor.Components;
 using CWDocMgrBlazor.Components.Account;
 using CWDocMgrBlazor.Data;
 using CWDocMgrBlazor.Services;
+using DocMgrLib.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -80,6 +81,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<DocumentService>();
+builder.Services.AddScoped<OCRService>();
 
 
 var app = builder.Build();

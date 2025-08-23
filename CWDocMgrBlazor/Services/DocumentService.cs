@@ -1,8 +1,8 @@
 ﻿using CWDocMgrBlazor.Data;
 using CWDocMgrBlazor.Models;
+using DocMgrLib.Services;
 using Microsoft.EntityFrameworkCore;
 using SharedLib.DTOs;
-using System.Security.Claims;
 
 namespace CWDocMgrBlazor.Services
 {
@@ -10,15 +10,17 @@ namespace CWDocMgrBlazor.Services
     public class DocumentService
     {
         private readonly ILogger<DocumentService> _logger;
-        public IConfiguration _config;
+        public readonly IConfiguration _config;
         private readonly ApplicationDbContext _db;
+        private readonly OCRService _ocrService;
 
 
-        public DocumentService(ILogger<DocumentService> logger, IConfiguration config, ApplicationDbContext db) 
+        public DocumentService(ILogger<DocumentService> logger, IConfiguration config, ApplicationDbContext db, OCRService ocrService) 
         {
             _logger = logger;
             _config = config;
             _db = db;
+            _ocrService = ocrService;
         }
 
         public async Task<List<DocumentModel>> GetAllDocuments() 
@@ -103,8 +105,73 @@ namespace CWDocMgrBlazor.Services
 
         public async Task<string> OCRDocument(DocumentModel document)
         {
-            return "Not implemented yet";
+            try
+            {
+                _logger.LogInformation($"Starting OCR for document: {document.DocumentName}");
+
+                // Get the OCR output folder
+                string ocrOutputFolder = _config["OCROutputFolder"];
+                if (string.IsNullOrEmpty(ocrOutputFolder))
+                {
+                    _logger.LogError("OCROutputFolder configuration is missing");
+                    return "Error: OCR output folder not configured";
+                }
+
+                // Ensure the OCR output directory exists
+                Directory.CreateDirectory(ocrOutputFolder);
+
+                // Get the file name without extension
+                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(document.DocumentName);
+
+                // Create output base path (without file extension)
+                string outputBasePath = Path.Combine(ocrOutputFolder, fileNameWithoutExtension);
+
+                // Process the document based on file type
+                string extension = Path.GetExtension(document.DocumentName).ToLowerInvariant();
+                string errorMsg = "";
+
+                if (extension == ".pdf")
+                {
+                    // Full path to the document
+                    string documentFullPath = Path.Combine(_config["UploadsFolder"], document.DocumentName);
+                    await _ocrService.OCRPDFFile(documentFullPath, outputBasePath, "eng");
+                }
+                else
+                {
+                    // For non-PDF files, just pass the document name
+                    errorMsg = _ocrService.OCRImageFile(document.DocumentName, outputBasePath, "eng");
+                    if (!string.IsNullOrEmpty(errorMsg))
+                    {
+                        _logger.LogWarning($"OCR returned error: {errorMsg}");
+                        return $"OCR Error: {errorMsg}";
+                    }
+                }
+
+                // Get the OCR text from the generated file
+                string ocrText = _ocrService.GetOcrFileText(document.DocumentName);
+
+                if (string.IsNullOrEmpty(ocrText))
+                {
+                    ocrText = "No text was extracted from the document.";
+                }
+
+                _logger.LogInformation($"OCR completed for document: {document.DocumentName}");
+                return ocrText;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error performing OCR on document {document.DocumentName}");
+                return $"OCR failed: {ex.Message}";
+            }
         }
+
+        //public async Task<string> OCRDocument(DocumentModel document)
+        //{
+        //    string ocrFolder = _config["OCROutputFolder"];
+        //    _ocrService.OCRImageFile(document.DocumentName, ocrFolder, "eng");
+
+        //    return "Not implemented yet";
+        //}
 
     }
 }
