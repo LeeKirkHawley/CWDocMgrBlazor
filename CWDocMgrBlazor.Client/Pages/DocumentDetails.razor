@@ -11,14 +11,21 @@
 else
 {
     <h4>Document: @document.OriginalDocumentName</h4>
-    <div class="d-flex flex-column mb-3">
-        <div class="p-1">
-            <strong>Date:</strong> @document.DocumentDate.ToString("yyyy-MM-dd")
+    <div class="d-flex flex-row mb-6">
+        <div class="d-flex flex-column mb-6" style="border: 1px solid #ccc; padding: 10px; border-radius: 4px;">
+            <div class="p-1">
+                <strong>Date:</strong> @document.DocumentDate.ToString("yyyy-MM-dd")
+            </div>
+            <div class="p-1">
+                <strong>User Name:</strong> @document.UserName
+            </div>
         </div>
-        <div class="p-1">
-            <strong>User Name:</strong> @document.UserName
+        <div class="d-flex flex-column mb-6" style="border: 1px solid #ccc; padding: 10px; border-radius: 4px;">
+            @* <button class="btn btn-primary mb-2" @onclick="() => DoOcr()>Edit Document</button> *@
+            <button class="btn btn-primary mb-2" @onclick="() => DoOcr()">OCR</button>
         </div>
     </div>
+
     @if (!string.IsNullOrEmpty(document.OCRText))
     {
         <p><strong>OCR Text:</strong> @document.OCRText</p>
@@ -41,4 +48,10 @@ else
     {
         document = await Http.GetFromJsonAsync<DocumentDetailsVM>($"api/documents/{Id}");
     }
+
+    private void DoOcr()
+    {
+        // Placeholder for OCR functionality
+        Console.WriteLine("OCR button clicked");
+    }   
 }
