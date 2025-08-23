@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using CWDocMgrBlazor.Models;
-using Microsoft.Extensions.Logging;
-using SharedLib.Models;
+using SharedLib.ViewModels;
 
 namespace CWDocMgrBlazor
 {
@@ -15,7 +14,7 @@ namespace CWDocMgrBlazor
                 .ForMember(dest => dest.DocumentDate, opt => opt.MapFrom(src => src.DocumentDate.ToUniversalTime().ToString("yyyy-MM-dd")));
             configurationOptions.CreateMap<SharedLib.ViewModels.DocumentVM, Models.DocumentModel>()
                 .ForMember(dest => dest.DocumentDate, opt => opt.MapFrom(src => DateTime.Parse(src.DocumentDate).ToUniversalTime()));
-            configurationOptions.CreateMap<DocumentModel, DocumentUploadVM>()
+            configurationOptions.CreateMap<DocumentModel, DocumentDetailsVM>()
                 .ForMember(dest => dest.DateString, opt => opt.MapFrom(src => src.DocumentDate.ToString("yyyy-MM-dd")));
 
             MapperConfiguration mappingConfig;

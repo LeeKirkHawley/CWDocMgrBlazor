@@ -18,7 +18,7 @@
                 <td>@doc.OriginalDocumentName</td>
                 <td>@doc.DocumentName</td>
                 <td>@doc.DocumentDate</td>
-                <td><button class="btn btn-link action-item" @onclick="() => DocumentDetails(doc.Id)">Details</button>
+                <td><button class="btn btn-link action-item" @onclick="() => DocumentDetails(doc.Id)">View</button>
                 <button class="btn btn-link action-item" @onclick="() => DeleteDocument(doc.Id)">Delete</button></td>
 
                 @* <a asp-controller="Document" asp-action="Edit" asp-route-id="@doc.Id">Edit</a> *@

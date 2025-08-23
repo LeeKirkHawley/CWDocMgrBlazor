@@ -24,9 +24,10 @@ namespace CWDocMgrBlazor.Controllers
         private readonly ILogger<DocumentsController> _logger;
         private readonly IMapper _mapper;
         private readonly DocumentService _documentService;
+        private readonly UserService _userService;
 
         public DocumentsController(ApplicationDbContext db, IWebHostEnvironment env, IConfiguration config, 
-            ILogger<DocumentsController> logger, IMapper mapper, DocumentService documentService)
+            ILogger<DocumentsController> logger, IMapper mapper, DocumentService documentService, UserService userService)
         {
             _db = db;
             _env = env;
@@ -34,6 +35,7 @@ namespace CWDocMgrBlazor.Controllers
             _logger = logger;
             _mapper = mapper;
             _documentService = documentService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -53,7 +55,7 @@ namespace CWDocMgrBlazor.Controllers
             if (Id == null)
                 return NotFound();
 
-            var document = await _documentService.GetDocumentById(Id.Value);
+            DocumentModel? document = await _documentService.GetDocumentById(Id.Value);
             if (document == null)
                 return NotFound();
 
@@ -63,8 +65,10 @@ namespace CWDocMgrBlazor.Controllers
             if(base64FileContent == null)
                 return NotFound($"Document file {document.DocumentName} not found.");
 
-            DocumentUploadVM docDetailsVM = _mapper.Map<DocumentUploadVM>(document);
+            DocumentDetailsVM docDetailsVM = _mapper.Map<DocumentDetailsVM>(document);
             docDetailsVM.FileContent = base64FileContent;
+
+            docDetailsVM.UserName = await _userService.GetUserNameById(document.UserId);
 
             return Ok(docDetailsVM);
         }

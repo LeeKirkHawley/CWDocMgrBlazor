@@ -1,24 +1,21 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace SharedLib.Models
+﻿namespace SharedLib.ViewModels
 {
-    public record DocumentUploadVM
+    public class DocumentDetailsVM
     {
-        public DocumentUploadVM()
+        public DocumentDetailsVM()
         {
             OCRText = "";
-            //User = null;
             DateString = null;
         }
 
         public int Id { get; set; }
         public required string UserId { get; set; }
+        public string UserName { get; set; } = "Unknown User";
         public required string DocumentName { get; set; }
         public required string OriginalDocumentName { get; set; }
         public required DateTime DocumentDate { get; set; }
 
-        //public virtual UserModel? User { get; set; }
-        public string DateString { get; set; }
+        public required string DateString { get; set; }
         public string? OCRText { get; set; }
 
         public string? FileContent { get; set; }
