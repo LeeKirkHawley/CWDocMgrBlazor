@@ -101,5 +101,10 @@ namespace CWDocMgrBlazor.Services
             await _db.SaveChangesAsync();
         }
 
+        public async Task<string> OCRDocument(DocumentModel document)
+        {
+            return "Not implemented yet";
+        }
+
     }
 }
