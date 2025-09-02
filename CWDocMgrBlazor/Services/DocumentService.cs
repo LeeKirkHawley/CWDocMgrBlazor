@@ -166,14 +166,5 @@ namespace CWDocMgrBlazor.Services
                 return $"OCR failed: {ex.Message}";
             }
         }
-
-        //public async Task<string> OCRDocument(DocumentModel document)
-        //{
-        //    string ocrFolder = _config["OCROutputFolder"];
-        //    _ocrService.OCRImageFile(document.DocumentName, ocrFolder, "eng");
-
-        //    return "Not implemented yet";
-        //}
-
     }
 }
