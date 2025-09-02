@@ -8,6 +8,7 @@
         public required string DocumentName { get; set; }
         public required string OriginalDocumentName { get; set; }
         public required DateTime DocumentDate { get; set; }
+        public string ? OCRText { get; set; }
 
     }
 }

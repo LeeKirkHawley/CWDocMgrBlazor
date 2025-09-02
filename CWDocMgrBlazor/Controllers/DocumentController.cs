@@ -94,6 +94,8 @@ namespace CWDocMgrBlazor.Controllers
             return Ok(new { document.Id });
         }
 
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -112,7 +114,7 @@ namespace CWDocMgrBlazor.Controllers
             if (dto.Id <= 0)
                 return BadRequest("Invalid document ID.");
 
-            var document = await _db.Documents.FindAsync(dto.Id);
+            DocumentModel? document = await _db.Documents.FindAsync(dto.Id);
             if (document == null)
                 return NotFound("Document not found.");
 
@@ -125,6 +127,9 @@ namespace CWDocMgrBlazor.Controllers
                 return NotFound("Document file not found.");
 
             string ocrText = await _documentService.OCRDocument(document);
+
+            document.OCRText = ocrText;
+            await _db.SaveChangesAsync();
 
             return Ok(new { ocrText });
         }
