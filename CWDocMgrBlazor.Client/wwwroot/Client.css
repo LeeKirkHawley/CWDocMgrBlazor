@@ -2,3 +2,32 @@
 .action-item {
     padding: 0.5rem;
 }
+
+.action-item {
+    padding: 0.5rem;
+}
+
+/* OCR Text Styling */
+.ocr-container {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.ocr-text {
+    font-family: 'Consolas', 'Courier New', monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-x: auto;
+    line-height: 1.5;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: #333;
+    font-size: 0.9rem;
+    max-height: 400px;
+    overflow-y: auto;
+}

@@ -29,9 +29,9 @@ jobs:
     - name: FTP Deploy
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: ${{ secrets.SERVER }}
+        server: ${{ secrets.FTPSERVER }}
         username: ${{ secrets.FTPUSERNAME }}
         password: ${{ secrets.FTPPASSWORD }}
         local-dir: ./publish/
-        server-dir: ${{ secrets.FTPSERVER_DIR }}
+        server-dir: ${{ secrets.FTPSERVERDIR }}
         dangerous-clean-slate: true # Use with caution - removes existing files

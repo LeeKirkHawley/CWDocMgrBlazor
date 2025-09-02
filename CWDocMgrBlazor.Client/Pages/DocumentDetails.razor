@@ -30,7 +30,10 @@ else
 
     @if (!string.IsNullOrEmpty(document.OCRText))
     {
-        <p><strong>OCR Text:</strong> @document.OCRText</p>
+        <div class="ocr-container">
+            <h5>OCR Text:</h5>
+            <pre class="ocr-text">@document.OCRText</pre>
+        </div>
     }
     @if (!string.IsNullOrEmpty(document.FileContent))
     {
