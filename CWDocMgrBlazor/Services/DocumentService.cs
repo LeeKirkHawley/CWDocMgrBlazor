@@ -148,7 +148,9 @@ namespace CWDocMgrBlazor.Services
                 }
 
                 // Get the OCR text from the generated file
-                string ocrText = _ocrService.GetOcrFileText(document.DocumentName);
+                string ocrText = _ocrService.GetOcrFileText(document);
+                _ocrService.OCRCleanup(document);
+
 
                 if (string.IsNullOrEmpty(ocrText))
                 {

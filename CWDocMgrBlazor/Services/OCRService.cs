@@ -1,5 +1,6 @@
 ﻿using CWDocMgrBlazor.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using System.Diagnostics;
 
 namespace DocMgrLib.Services
@@ -344,11 +345,17 @@ namespace DocMgrLib.Services
 
         }
 
-        public string GetOcrFileText(string documentFilePath)
+        public string GetOCRFilePath(DocumentModel documentModel)
+        {
+            string documentFilePath = _configuration["UploadsFolder"] + "/" + documentModel.DocumentName;
+            string ocrFilePath = _configuration["OCROutputFolder"] + "/" + Path.GetFileNameWithoutExtension(documentFilePath) + ".txt";
+            return ocrFilePath;
+        }
+
+        public string GetOcrFileText(DocumentModel documentModel)
         {
             string ocrText = "";
-            //string ocrFilePath = _fileService.GetOcrFilePath(documentFilePath);
-            string ocrFilePath = _configuration["OCROutputFolder"] + "\\" + Path.GetFileNameWithoutExtension(documentFilePath) + ".txt";
+            string ocrFilePath = GetOCRFilePath(documentModel);
             if (System.IO.File.Exists(ocrFilePath))
             {
                 try
@@ -362,6 +369,12 @@ namespace DocMgrLib.Services
             }
 
             return ocrText;
+        }
+
+        public void OCRCleanup(DocumentModel documentModel)
+        {
+            string ocrFile = GetOCRFilePath(documentModel);
+            System.IO.File.Delete(ocrFile);
         }
 
 
