@@ -33,7 +33,7 @@ jobs:
         username: ${{ secrets.FTPUSERNAME }}
         password: ${{ secrets.FTPPASSWORD }}
         local-dir: ./publish/
-        server-dir: ${{ secrets.FTPSERVERDIR }}/
+        server-dir: ${{ secrets.FTPSERVERDIR }}
         dangerous-clean-slate: true
         protocol: ftps
         port: 21  # Or 990 if using implicit FTPS; check your hosting control panel
