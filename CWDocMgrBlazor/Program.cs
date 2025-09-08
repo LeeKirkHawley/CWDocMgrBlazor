@@ -1,4 +1,3 @@
-using AutoMapper;
 using CWDocMgrBlazor;
 using CWDocMgrBlazor.Components;
 using CWDocMgrBlazor.Components.Account;
@@ -41,16 +40,6 @@ builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<UserService>();
 
-// Register AutoMapper
-builder.Services.AddSingleton(provider => {
-    var loggerFactory = provider.GetRequiredService<ILoggerFactory>();
-    return CWDocMgrBlazor.Mapper.RegisterMaps(loggerFactory);
-});
-builder.Services.AddSingleton(provider => {
-    var config = provider.GetRequiredService<MapperConfiguration>();
-    return config.CreateMapper();
-});
-
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = IdentityConstants.ApplicationScheme;
@@ -62,8 +51,6 @@ builder.Services.AddAuthorization();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 Log.Information("ConnectionString: " + connectionString);
 
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseNpgsql(connectionString));
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

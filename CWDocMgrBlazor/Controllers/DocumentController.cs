@@ -1,16 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using CWDocMgrBlazor.Data;
-using SharedLib.Models;
-using System.IO;
+﻿using CWDocMgrBlazor.Data;
 using CWDocMgrBlazor.Models;
-using System.Security.Claims;
-using Microsoft.EntityFrameworkCore;
-using SharedLib.DTOs;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Authorization;
-using SharedLib.ViewModels;
-using AutoMapper;
 using CWDocMgrBlazor.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using SharedLib.DTOs;
+using SharedLib.ViewModels;
+using System.Security.Claims;
 
 namespace CWDocMgrBlazor.Controllers
 {
@@ -22,18 +18,16 @@ namespace CWDocMgrBlazor.Controllers
         private readonly IWebHostEnvironment _env;
         private readonly IConfiguration _config;
         private readonly ILogger<DocumentsController> _logger;
-        private readonly IMapper _mapper;
         private readonly DocumentService _documentService;
         private readonly UserService _userService;
 
         public DocumentsController(ApplicationDbContext db, IWebHostEnvironment env, IConfiguration config, 
-            ILogger<DocumentsController> logger, IMapper mapper, DocumentService documentService, UserService userService)
+            ILogger<DocumentsController> logger, DocumentService documentService, UserService userService)
         {
             _db = db;
             _env = env;
             _config = config;
             _logger = logger;
-            _mapper = mapper;
             _documentService = documentService;
             _userService = userService;
         }
@@ -44,7 +38,20 @@ namespace CWDocMgrBlazor.Controllers
         public async Task<ActionResult<IEnumerable<DocumentVM>>> GetAll()
         {
             List<DocumentModel> documents = await _documentService.GetAllDocuments();
-            List<DocumentVM> docVMs = _mapper.Map<List<DocumentVM>>(documents);
+
+            List<DocumentVM> docVMs = new List<DocumentVM>();
+            foreach (var document in documents)
+            {
+                DocumentVM documentVM = new DocumentVM {
+                    DocumentDate = document.DocumentDate.ToString(),
+                    DocumentName = document.DocumentName,
+                    UserId = document.UserId,
+                    OriginalDocumentName = document.OriginalDocumentName,
+                    Id = document.Id,
+                };
+
+                docVMs.Add(documentVM);
+            }
 
             return Ok(docVMs);
         }
@@ -65,11 +72,18 @@ namespace CWDocMgrBlazor.Controllers
             if(base64FileContent == null)
                 return NotFound($"Document file {document.DocumentName} not found.");
 
-            DocumentDetailsVM docDetailsVM = _mapper.Map<DocumentDetailsVM>(document);
-            docDetailsVM.FileContent = base64FileContent;
-
-            docDetailsVM.UserName = await _userService.GetUserNameById(document.UserId);
-
+            DocumentDetailsVM docDetailsVM = new DocumentDetailsVM
+            {
+                UserId = document.UserId,
+                DocumentName = document.DocumentName,
+                OriginalDocumentName = document.OriginalDocumentName,
+                DocumentDate = document.DocumentDate,
+                DateString = document.DocumentDate.ToString(),  
+                FileContent = base64FileContent,
+                UserName = await _userService.GetUserNameById(document.UserId),
+                OCRText = document.OCRText
+            };
+            
             return Ok(docDetailsVM);
         }
 
