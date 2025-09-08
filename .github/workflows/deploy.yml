@@ -31,7 +31,7 @@ jobs:
       with:
         server: 209.58.148.243
         username: kirkhawley
-        password: Rudeboy!1953
+        password: AHPRudeboy10
         local-dir: ./publish/
         server-dir: /kirkhawley.org/
         dangerous-clean-slate: true
