@@ -29,11 +29,11 @@ jobs:
     - name: FTP Deploy
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-        server: ${{ secrets.FTPSERVER }}
-        username: ${{ secrets.FTPUSERNAME }}
-        password: ${{ secrets.FTPPASSWORD }}
+        server: 209.58.148.243
+        username: kirkhawley
+        password: Rudeboy!1953
         local-dir: ./publish/
-        server-dir: ${{ secrets.FTPSERVERDIR }}
+        server-dir: /kirkhawley.org
         dangerous-clean-slate: true
         protocol: ftps
         port: 21  # Or 990 if using implicit FTPS; check your hosting control panel
