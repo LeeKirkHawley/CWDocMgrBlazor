@@ -34,7 +34,7 @@ jobs:
         password: AHPRudeboy10
         local-dir: ./publish/
         server-dir: /kirkhawley.org/
-        dangerous-clean-slate: true
+        # dangerous-clean-slate: true
         # protocol: ftps
         protocol: ftp
         port: 21  # Or 990 if using implicit FTPS; check your hosting control panel
