@@ -69,6 +69,8 @@ namespace CWDocMgrBlazor.Services
             string newFileName = $"{fileName}{fileExtension}";
             var filePath = Path.Combine(uploadsFolder, newFileName);
 
+            _logger.LogInformation($"Uploading file to: {filePath}");
+
             using (var stream = System.IO.File.Create(filePath))
             {
                 await dto.File.CopyToAsync(stream);
