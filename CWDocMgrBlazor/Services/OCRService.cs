@@ -1,6 +1,6 @@
 ﻿using CWDocMgrBlazor.Models;
+using CWDocMgrBlazor.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Query.Internal;
 using System.Diagnostics;
 
 namespace DocMgrLib.Services
@@ -9,11 +9,13 @@ namespace DocMgrLib.Services
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<OCRService> _logger;
+        private readonly PathService _pathService;
 
-        public OCRService(IConfiguration configuration, ILogger<OCRService> logger)
+        public OCRService(IConfiguration configuration, ILogger<OCRService> logger, PathService pathService)
         {
             _configuration = configuration;
             _logger = logger;
+            _pathService = pathService;
         }
 
         //public async Task DoOcr(DocumentModel? documentModel)
@@ -89,9 +91,9 @@ namespace DocMgrLib.Services
         //    //_debugLogger.Debug($"Leaving HomeController.Index()");
         //}
 
-        public string OCRImageFile(string imageName, string outputBase, string language)
+        public string OCRImageFile(string imageName, string outputBase, string language, string uploadsFolder)
         {
-            string imagePath = _configuration["UploadsFolder"] + "/" + imageName;
+            string imagePath = uploadsFolder + "/" + imageName;
 
             // if outputBase has an extension, remove it.
             outputBase = outputBase.Split('.')[0];
@@ -181,7 +183,7 @@ namespace DocMgrLib.Services
             return returnMsg;
         }
 
-        public async Task<string> OCRPDFFile(string pdfName, string outputFile, string language)
+        public async Task<string> OCRPDFFile(string pdfName, string outputFile, string language, string UploadsFolder)
         {
             string fileNameNoExtension = Path.GetFileNameWithoutExtension(pdfName);
 
@@ -212,7 +214,7 @@ namespace DocMgrLib.Services
 
             //string outputBase = _fileService.GetOcrFilePath(fileNameNoExtension);
             string outputBase = _configuration["OCROutputFolder"] + "\\" + fileNameNoExtension;
-            return OCRImageFile(tifFileName, outputBase, language);
+            return OCRImageFile(tifFileName, outputBase, language, UploadsFolder);
 
         }
 
@@ -345,17 +347,17 @@ namespace DocMgrLib.Services
 
         }
 
-        public string GetOCRFilePath(DocumentModel documentModel)
+        public string GetOCRFilePath(DocumentModel documentModel, string uploadsFolder)
         {
-            string documentFilePath = _configuration["UploadsFolder"] + "/" + documentModel.DocumentName;
+            string documentFilePath = uploadsFolder + "/" + documentModel.DocumentName;
             string ocrFilePath = _configuration["OCROutputFolder"] + "/" + Path.GetFileNameWithoutExtension(documentFilePath) + ".txt";
             return ocrFilePath;
         }
 
-        public string GetOcrFileText(DocumentModel documentModel)
+        public string GetOcrFileText(DocumentModel documentModel, string rootPath)
         {
             string ocrText = "";
-            string ocrFilePath = GetOCRFilePath(documentModel);
+            string ocrFilePath = GetOCRFilePath(documentModel, _pathService.GetUploadFolderPath());
             if (System.IO.File.Exists(ocrFilePath))
             {
                 try
@@ -371,9 +373,9 @@ namespace DocMgrLib.Services
             return ocrText;
         }
 
-        public void OCRCleanup(DocumentModel documentModel)
+        public void OCRCleanup(DocumentModel documentModel, string rootPath)
         {
-            string ocrFile = GetOCRFilePath(documentModel);
+            string ocrFile = GetOCRFilePath(documentModel, rootPath);
             System.IO.File.Delete(ocrFile);
         }
 

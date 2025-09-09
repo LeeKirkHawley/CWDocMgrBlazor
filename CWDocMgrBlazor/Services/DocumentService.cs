@@ -13,14 +13,16 @@ namespace CWDocMgrBlazor.Services
         public readonly IConfiguration _config;
         private readonly ApplicationDbContext _db;
         private readonly OCRService _ocrService;
+        private readonly PathService _pathService;
 
-
-        public DocumentService(ILogger<DocumentService> logger, IConfiguration config, ApplicationDbContext db, OCRService ocrService) 
+        public DocumentService(ILogger<DocumentService> logger, IConfiguration config, ApplicationDbContext db, 
+            OCRService ocrService, PathService pathService) 
         {
             _logger = logger;
             _config = config;
             _db = db;
             _ocrService = ocrService;
+            _pathService = pathService;
         }
 
         public async Task<List<DocumentModel>> GetAllDocuments() 
@@ -45,11 +47,10 @@ namespace CWDocMgrBlazor.Services
             return document;
         }
 
-        public async Task<string?> GetDocumentFileContent(DocumentModel document) 
+        public async Task<string?> GetDocumentFileContent(string documentFilePath) 
         {
             byte[] fileBytes = [];
             string ? base64FileContent = null;
-            string documentFilePath = _config["UploadsFolder"] + "/" + document.DocumentName;
 
             if (System.IO.File.Exists(documentFilePath))
             {
@@ -89,30 +90,24 @@ namespace CWDocMgrBlazor.Services
             return document;
         }
 
-        public async Task DeleteDocument(DocumentModel document)
+        public async Task DeleteDocument(DocumentModel document, string filePath)
         {
-            var uploadsFolder = _config["UploadsFolder"];
-            if (!string.IsNullOrEmpty(uploadsFolder))
+            if (System.IO.File.Exists(filePath))
             {
-                var filePath = Path.Combine(uploadsFolder, document.DocumentName);
-                if (System.IO.File.Exists(filePath))
-                {
-                    System.IO.File.Delete(filePath);
-                }
+                System.IO.File.Delete(filePath);
             }
 
             _db.Documents.Remove(document);
             await _db.SaveChangesAsync();
         }
 
-        public async Task<string> OCRDocument(DocumentModel document)
+        public async Task<string> OCRDocument(DocumentModel document, string ocrOutputFolder, string uploadFilePath, string rootPath)
         {
             try
             {
                 _logger.LogInformation($"Starting OCR for document: {document.DocumentName}");
 
                 // Get the OCR output folder
-                string ocrOutputFolder = _config["OCROutputFolder"];
                 if (string.IsNullOrEmpty(ocrOutputFolder))
                 {
                     _logger.LogError("OCROutputFolder configuration is missing");
@@ -135,13 +130,14 @@ namespace CWDocMgrBlazor.Services
                 if (extension == ".pdf")
                 {
                     // Full path to the document
-                    string documentFullPath = Path.Combine(_config["UploadsFolder"], document.DocumentName);
-                    await _ocrService.OCRPDFFile(documentFullPath, outputBasePath, "eng");
+                    string documentFullPath = _pathService.GetUploadFilePath(document.DocumentName);
+                    await _ocrService.OCRPDFFile(documentFullPath, outputBasePath, "eng", _pathService.GetUploadFolderPath());
                 }
                 else
                 {
                     // For non-PDF files, just pass the document name
-                    errorMsg = _ocrService.OCRImageFile(document.DocumentName, outputBasePath, "eng");
+
+                    errorMsg = _ocrService.OCRImageFile(document.DocumentName, outputBasePath, "eng", uploadFilePath);
                     if (!string.IsNullOrEmpty(errorMsg))
                     {
                         _logger.LogWarning($"OCR returned error: {errorMsg}");
@@ -150,8 +146,8 @@ namespace CWDocMgrBlazor.Services
                 }
 
                 // Get the OCR text from the generated file
-                string ocrText = _ocrService.GetOcrFileText(document);
-                _ocrService.OCRCleanup(document);
+                string ocrText = _ocrService.GetOcrFileText(document, rootPath);
+                _ocrService.OCRCleanup(document, rootPath);
 
 
                 if (string.IsNullOrEmpty(ocrText))

@@ -72,6 +72,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<DocumentService>();
 builder.Services.AddScoped<OCRService>();
+builder.Services.AddScoped<PathService>();
 
 
 var app = builder.Build();

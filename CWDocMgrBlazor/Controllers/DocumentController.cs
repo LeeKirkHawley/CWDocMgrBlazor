@@ -20,9 +20,10 @@ namespace CWDocMgrBlazor.Controllers
         private readonly ILogger<DocumentsController> _logger;
         private readonly DocumentService _documentService;
         private readonly UserService _userService;
+        private readonly PathService _pathService;
 
         public DocumentsController(ApplicationDbContext db, IWebHostEnvironment env, IConfiguration config, 
-            ILogger<DocumentsController> logger, DocumentService documentService, UserService userService)
+            ILogger<DocumentsController> logger, DocumentService documentService, UserService userService, PathService pathService)
         {
             _db = db;
             _env = env;
@@ -30,6 +31,7 @@ namespace CWDocMgrBlazor.Controllers
             _logger = logger;
             _documentService = documentService;
             _userService = userService;
+            _pathService = pathService;
         }
 
         [HttpGet]
@@ -68,7 +70,8 @@ namespace CWDocMgrBlazor.Controllers
 
             await _documentService.GetDocumentById(Id.Value);
 
-            string? base64FileContent = await _documentService.GetDocumentFileContent(document);
+            string uploadFilePath = _pathService.GetUploadFilePath(document.DocumentName);
+            string? base64FileContent = await _documentService.GetDocumentFileContent(uploadFilePath);
             if(base64FileContent == null)
                 return NotFound($"Document file {document.DocumentName} not found.");
 
@@ -97,7 +100,8 @@ namespace CWDocMgrBlazor.Controllers
             if (dto.File == null || dto.File.Length == 0)
                 return BadRequest("No file uploaded.");
 
-            string? uploadsFolder = _config["UploadsFolder"];
+            string uploadsFolder = Path.Combine(_env.ContentRootPath, _config["UploadsFolder"]);
+
             if (uploadsFolder == null)
                 return Problem("No configured upload folder.");
 
@@ -117,7 +121,8 @@ namespace CWDocMgrBlazor.Controllers
             if (document == null)
                 return NotFound();
 
-            await _documentService.DeleteDocument(document);
+            string filePath = _pathService.GetUploadFilePath(document.DocumentName);
+            await _documentService.DeleteDocument(document, filePath);
 
             return NoContent();
         }
@@ -132,20 +137,18 @@ namespace CWDocMgrBlazor.Controllers
             if (document == null)
                 return NotFound("Document not found.");
 
-            string? uploadsFolder = _config["UploadsFolder"];
-            if (uploadsFolder == null)
-                return Problem("No configured upload folder.");
-
-            string documentFilePath = Path.Combine(uploadsFolder, document.DocumentName);
+            string documentFilePath = _pathService.GetUploadFilePath(document.DocumentName);
             if (!System.IO.File.Exists(documentFilePath))
                 return NotFound("Document file not found.");
 
-            string ocrText = await _documentService.OCRDocument(document);
+            string ocrFileFolder = _pathService.GetOCRFolderPath();
+            string ocrText = await _documentService.OCRDocument(document, ocrFileFolder, documentFilePath, ocrFileFolder);
 
             document.OCRText = ocrText;
             await _db.SaveChangesAsync();
 
             return Ok(new { ocrText });
         }
+
     }
 }
