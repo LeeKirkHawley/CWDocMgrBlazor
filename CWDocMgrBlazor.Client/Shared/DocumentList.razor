@@ -43,7 +43,7 @@
         Console.WriteLine($"Attempting to delete document {id}");
         try
         {
-            var response = await _httpClient.DeleteAsync($"api/Documents/{id}");
+            var response = await _httpClient.PostAsync($"api/Documents/delete/{id}", null);
             Console.WriteLine($"Delete response: {response.StatusCode}");
             if(response.IsSuccessStatusCode)
             {

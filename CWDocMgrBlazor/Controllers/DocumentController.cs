@@ -121,7 +121,7 @@ namespace CWDocMgrBlazor.Controllers
 
 
 
-        [HttpDelete("{id}")]
+        [HttpPost("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             _logger.LogDebug("In Delete endpoint");
