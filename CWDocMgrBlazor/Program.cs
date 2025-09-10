@@ -14,6 +14,7 @@ string logFolder = builder.Configuration["LogFolder"];
 string logFileName = logFolder + "\\log-.txt";
 
 Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
     .WriteTo.File(logFileName, rollingInterval: RollingInterval.Day)
     .CreateLogger();
 

@@ -39,6 +39,9 @@ namespace CWDocMgrBlazor.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<DocumentVM>>> GetAll()
         {
+            _logger.LogDebug("In GetAll endpoint");
+            _logger.LogInformation("In GetAll endpoint");
+
             List<DocumentModel> documents = await _documentService.GetAllDocuments();
 
             List<DocumentVM> docVMs = new List<DocumentVM>();
@@ -61,6 +64,8 @@ namespace CWDocMgrBlazor.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Details(int? Id)
         {
+            _logger.LogDebug("In Details endpoint");
+
             if (Id == null)
                 return NotFound();
 
@@ -95,6 +100,8 @@ namespace CWDocMgrBlazor.Controllers
         [RequestSizeLimit(10_000_000)] // 10 MB, adjust as needed
         public async Task<IActionResult> Upload([FromForm] DocumentUploadDto dto)
         {
+            _logger.LogDebug("In Upload endpoint");
+
             _logger.LogDebug("Uploading file(s)");
 
             if (dto.File == null || dto.File.Length == 0)
@@ -137,6 +144,8 @@ namespace CWDocMgrBlazor.Controllers
         [HttpPost("ocrdocument")]
         public async Task<IActionResult> OCRDocument([FromBody] OCRRequestDto dto)
         {
+            _logger.LogDebug("In OCREndpoint endpoint");
+
             if (dto.Id <= 0)
                 return BadRequest("Invalid document ID.");
 
