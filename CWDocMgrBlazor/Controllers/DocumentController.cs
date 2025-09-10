@@ -129,7 +129,7 @@ namespace CWDocMgrBlazor.Controllers
             var document = await _db.Documents.FindAsync(id);
             if (document == null)
             {
-                _logger.LogDebug($"Document {document.Id} not found.");
+                _logger.LogDebug($"Document {id} not found.");
                 return NotFound();
             }
 
@@ -138,7 +138,7 @@ namespace CWDocMgrBlazor.Controllers
 
             _logger.LogDebug($"Deleted document {document.Id}");
 
-            return NoContent();
+            return Ok();
         }
 
         [HttpPost("ocrdocument")]

@@ -32,26 +32,34 @@
 
 @code {
     [Parameter] public List<DocumentVM> Documents { get; set; } = new List<DocumentVM>();
+    [Parameter] public EventCallback OnDocumentDeleted { get; set; }
 
-    [Inject] private HttpClient Http { get; set; }
-
+    [Inject] private HttpClient _httpClient { get; set; }
     [Inject] private NavigationManager NavigationManager { get; set; }
 
-    private async Task DeleteDocument(int id)
+    // In your client-side component or service
+    public async Task DeleteDocument(int id)
     {
-        var response = await Http.DeleteAsync($"api/documents/{id}");
-        if (response.IsSuccessStatusCode)
+        Console.WriteLine($"Attempting to delete document {id}");
+        try
         {
-            var docToRemove = Documents.FirstOrDefault(d => d.Id == id);
-            if (docToRemove != null)
+            var response = await _httpClient.DeleteAsync($"api/Documents/{id}");
+            Console.WriteLine($"Delete response: {response.StatusCode}");
+            if(response.IsSuccessStatusCode)
             {
-                Documents.Remove(docToRemove);
-                StateHasChanged();
+                await OnDocumentDeleted.InvokeAsync();
+            }
+            else
+            {
+                string responseContent = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"Delete failed: {responseContent}");
+                // Handle error
             }
         }
-        else
+        catch (Exception ex)
         {
-            // Optionally show an error message
+            Console.WriteLine($"Exception deleting document: {ex}");
+            // Handle exception
         }
     }
 
