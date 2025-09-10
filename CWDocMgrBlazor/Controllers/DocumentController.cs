@@ -117,12 +117,19 @@ namespace CWDocMgrBlazor.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            _logger.LogDebug("In Delete endpoint");
+
             var document = await _db.Documents.FindAsync(id);
             if (document == null)
+            {
+                _logger.LogDebug($"Document {document.Id} not found.");
                 return NotFound();
+            }
 
             string filePath = _pathService.GetUploadFilePath(document.DocumentName);
             await _documentService.DeleteDocument(document, filePath);
+
+            _logger.LogDebug($"Deleted document {document.Id}");
 
             return NoContent();
         }
