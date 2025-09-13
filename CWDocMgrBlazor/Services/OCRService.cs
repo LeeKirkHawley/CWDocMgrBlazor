@@ -91,16 +91,17 @@ namespace DocMgrLib.Services
         //    //_debugLogger.Debug($"Leaving HomeController.Index()");
         //}
 
-        public string OCRImageFile(string imageName, string outputBase, string language, string uploadsFolder)
+        public string OCRImageFile(string imageName, string outputBase, string language, string imagePath)
         {
-            string imagePath = uploadsFolder + "/" + imageName;
-
             // if outputBase has an extension, remove it.
             outputBase = outputBase.Split('.')[0];
 
             string TessPath = _configuration["TesseractPath"] + "/tesseract.exe";
 
             _logger.LogInformation($"Running Tesseract OCR: {TessPath} \"{imagePath}\" \"{outputBase}\" -l {language}");
+
+            // build tesseract arguments
+            string tesseractArgs = imagePath + " " + outputBase + " " + "-l" + " " + "eng";
 
             string returnMsg = "";
             try
@@ -112,7 +113,7 @@ namespace DocMgrLib.Services
                 process.StartInfo.RedirectStandardError = true;
                 process.StartInfo.CreateNoWindow = true;
                 process.StartInfo.FileName = TessPath;
-                process.StartInfo.Arguments = $"\"{imagePath}\" \"{outputBase}\" -l {language}";
+                process.StartInfo.Arguments = tesseractArgs;
 
                 // Start the process
                 bool started = process.Start();
