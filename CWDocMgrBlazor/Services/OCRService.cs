@@ -98,10 +98,11 @@ namespace DocMgrLib.Services
 
             string TessPath = _configuration["TesseractPath"] + "/tesseract.exe";
 
-            _logger.LogInformation($"Running Tesseract OCR: {TessPath} \"{imagePath}\" \"{outputBase}\" -l {language}");
-
             // build tesseract arguments
             string tesseractArgs = imagePath + " " + outputBase + " " + "-l" + " " + "eng";
+
+            _logger.LogInformation($"OCR Paths: Tesseract Path: {TessPath} Image Path: {imagePath} Output Base: {outputBase}");
+            _logger.LogInformation($"OCR Args: {tesseractArgs}");
 
             string returnMsg = "";
             try
