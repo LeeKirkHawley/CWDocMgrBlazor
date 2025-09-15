@@ -1,6 +1,7 @@
 ﻿using CWDocMgrBlazor.Models;
 using CWDocMgrBlazor.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using SharedLib.Extensions;
 using System.Diagnostics;
 
 namespace DocMgrLib.Services
@@ -94,7 +95,13 @@ namespace DocMgrLib.Services
         public string OCRImageFile(string imageName, string outputBase, string language, string imagePath)
         {
             // if outputBase has an extension, remove it.
-            outputBase = outputBase.Split('.')[0];
+            IEnumerable<int> indexes = outputBase.AllIndexesOf('.');
+
+            if (indexes.Count() > 0)
+            {
+                int lastIndex = indexes.Last();
+                outputBase = outputBase.Substring(0, lastIndex);    
+            }
 
             string TessPath = _configuration["TesseractPath"] + "/tesseract.exe";
 
