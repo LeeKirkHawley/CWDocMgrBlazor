@@ -103,10 +103,10 @@ namespace CWDocMgrBlazor.Services
 
         public async Task<string> OCRDocument(DocumentModel document, string ocrOutputFolder, string uploadFilePath, string rootPath)
         {
+            _logger.LogInformation($"In OCRDocument(): DocumentName is {document.DocumentName} - ocrOutputFolder is {ocrOutputFolder} - uploadFilePath is {uploadFilePath} - rootPath is {rootPath}");
+
             try
             {
-                _logger.LogInformation($"Starting OCR for document: {document.DocumentName}");
-
                 // Get the OCR output folder
                 if (string.IsNullOrEmpty(ocrOutputFolder))
                 {
