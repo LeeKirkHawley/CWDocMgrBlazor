@@ -42,6 +42,8 @@ namespace CWDocMgrBlazor.Services
 
         public string GetOCRFolderPath()
         {
+            _logger.LogInformation($"In GetOCRFolderPath() - _env.ContentRootPath: {_env.ContentRootPath}");
+
             string uploadsFolder = Path.Combine(_env.ContentRootPath, _config["OCROutputFolder"]);
             if (uploadsFolder == null)
             {
