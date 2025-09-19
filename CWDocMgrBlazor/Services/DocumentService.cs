@@ -3,6 +3,7 @@ using CWDocMgrBlazor.Models;
 using DocMgrLib.Services;
 using Microsoft.EntityFrameworkCore;
 using SharedLib.DTOs;
+using SharedLib.Extensions;
 
 namespace CWDocMgrBlazor.Services
 {
@@ -107,21 +108,11 @@ namespace CWDocMgrBlazor.Services
 
             try
             {
-                // Get the OCR output folder
                 if (string.IsNullOrEmpty(ocrOutputFolder))
                 {
                     _logger.LogError("OCROutputFolder configuration is missing");
                     return "Error: OCR output folder not configured";
                 }
-
-                // Ensure the OCR output directory exists
-                Directory.CreateDirectory(ocrOutputFolder);
-
-                // Get the file name without extension
-                string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(document.DocumentName);
-
-                // Create output base path (without file extension)
-                string outputBasePath = Path.Combine(ocrOutputFolder, fileNameWithoutExtension);
 
                 // Process the document based on file type
                 string extension = Path.GetExtension(document.DocumentName).ToLowerInvariant();
@@ -130,14 +121,14 @@ namespace CWDocMgrBlazor.Services
                 if (extension == ".pdf")
                 {
                     // Full path to the document
-                    string documentFullPath = _pathService.GetUploadFilePath(document.DocumentName);
-                    await _ocrService.OCRPDFFile(documentFullPath, outputBasePath, "eng", _pathService.GetUploadFolderPath());
+                    //string documentFullPath = _pathService.GetUploadFilePath(document.DocumentName);
+                    //await _ocrService.OCRPDFFile(documentFullPath, outputBasePath, "eng", _pathService.GetUploadFolderPath());
                 }
                 else
                 {
                     // For non-PDF files, just pass the document name
 
-                    errorMsg = _ocrService.OCRImageFile(document.DocumentName, outputBasePath, "eng", uploadFilePath);
+                    errorMsg = _ocrService.OCRImageFile(document.DocumentName, "eng", uploadFilePath);
                     if (!string.IsNullOrEmpty(errorMsg))
                     {
                         _logger.LogWarning($"OCR returned error: {errorMsg}");

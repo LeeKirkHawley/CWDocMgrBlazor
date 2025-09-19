@@ -12,6 +12,18 @@ namespace DocMgrLib.Services
         private readonly ILogger<OCRService> _logger;
         private readonly PathService _pathService;
 
+
+        enum SupportedImageExtensions
+        {
+            jpg,
+            jpeg,
+            png,
+            bmp,
+            tiff,
+            tif,
+            gif
+        }
+
         public OCRService(IConfiguration configuration, ILogger<OCRService> logger, PathService pathService)
         {
             _configuration = configuration;
@@ -92,16 +104,25 @@ namespace DocMgrLib.Services
         //    //_debugLogger.Debug($"Leaving HomeController.Index()");
         //}
 
-        public string OCRImageFile(string imageName, string outputBase, string language, string imagePath)
+        public string OCRImageFile(string imageName, string language, string imagePath)
         {
             // if outputBase has an extension, remove it.
-            IEnumerable<int> indexes = outputBase.AllIndexesOf('.');
+            //IEnumerable<int> indexes = outputBase.AllIndexesOf('.');
 
-            if (indexes.Count() > 0)
-            {
-                int lastIndex = indexes.Last();
-                outputBase = outputBase.Substring(0, lastIndex);    
-            }
+            //if (indexes.Count() > 0)
+            //{
+            //    int lastIndex = indexes.Last();
+            //    outputBase = outputBase.Substring(0, lastIndex);    
+            //}
+
+            string ocrOutputFolder = _pathService.GetOCRFolderPath();
+
+            // Ensure the OCR output directory exists
+            Directory.CreateDirectory(ocrOutputFolder);
+
+            string outputFileWithoutExtension = StripExtensionFromImageFile(imageName);
+
+            string outputBase = ocrOutputFolder + "\\" + Path.GetFileNameWithoutExtension(imageName);   
 
             string TessPath = _configuration["TesseractPath"] + "/tesseract.exe";
 
@@ -225,7 +246,7 @@ namespace DocMgrLib.Services
 
             //string outputBase = _fileService.GetOcrFilePath(fileNameNoExtension);
             string outputBase = _configuration["OCROutputFolder"] + "\\" + fileNameNoExtension;
-            return OCRImageFile(tifFileName, outputBase, language, UploadsFolder);
+            return OCRImageFile(tifFileName, language, UploadsFolder);
 
         }
 
@@ -446,6 +467,28 @@ namespace DocMgrLib.Services
                     }
                 }
             }
+        }
+
+        private string StripExtensionFromImageFile(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+                return fileName;
+
+            // Get all enum values as strings
+            string[] extensions = Enum.GetNames(typeof(SupportedImageExtensions))
+                .Select(e => "." + e.ToLowerInvariant())
+                .ToArray();
+
+            foreach (string extension in extensions)
+            {
+                if (fileName.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
+                {
+                    // Remove the extension
+                    return fileName.Substring(0, fileName.Length - extension.Length);
+                }
+            }
+
+            return fileName;
         }
     }
 }
