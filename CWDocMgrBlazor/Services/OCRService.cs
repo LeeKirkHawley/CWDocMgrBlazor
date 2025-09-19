@@ -108,7 +108,9 @@ namespace DocMgrLib.Services
             // build tesseract arguments
             string tesseractArgs = imagePath + " " + outputBase + " " + "-l" + " " + "eng";
 
-            _logger.LogInformation($"OCR Paths: Tesseract Path: {TessPath} Image Path: {imagePath} Output Base: {outputBase}");
+            _logger.LogInformation($"Tesseract Path: {TessPath}");
+            _logger.LogInformation($"Image Path: {imagePath}");
+            _logger.LogInformation($"Output Base: {outputBase}");
             _logger.LogInformation($"OCR Args: {tesseractArgs}");
 
             string returnMsg = "";
