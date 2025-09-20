@@ -158,7 +158,17 @@ namespace CWDocMgrBlazor.Controllers
                 return NotFound("Document file not found.");
 
             string ocrFileFolder = _pathService.GetOCRFolderPath();
-            string ocrText = await _documentService.OCRDocument(document, ocrFileFolder, documentFilePath, ocrFileFolder);
+
+            string ocrText = string.Empty;
+            try
+            {
+                ocrText = await _documentService.OCRDocument(document, ocrFileFolder, documentFilePath, ocrFileFolder);
+            }
+            catch(Exception ex)             
+            {
+                _logger.LogError(ex, "Error during OCR processing.");
+                return StatusCode(500, "Error during OCR processing.");
+            }
 
             document.OCRText = ocrText;
             await _db.SaveChangesAsync();

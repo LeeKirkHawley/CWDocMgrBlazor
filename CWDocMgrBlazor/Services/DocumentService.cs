@@ -106,6 +106,14 @@ namespace CWDocMgrBlazor.Services
         {
             _logger.LogInformation($"In OCRDocument(): DocumentName is {document.DocumentName} - ocrOutputFolder is {ocrOutputFolder} - uploadFilePath is {uploadFilePath} - rootPath is {rootPath}");
 
+            bool OCRable = _ocrService.IsOCRable(document);
+            if(OCRable == false && !document.DocumentName.ToUpper().EndsWith(".PDF"))
+            {
+                string errorMsg = $"Document {document.DocumentName} is not OCRable.";
+                _logger.LogInformation(errorMsg);
+                throw (new InvalidOperationException(errorMsg));
+            }   
+
             try
             {
                 if (string.IsNullOrEmpty(ocrOutputFolder))
@@ -115,16 +123,15 @@ namespace CWDocMgrBlazor.Services
                 }
 
                 // Process the document based on file type
-                string extension = Path.GetExtension(document.DocumentName).ToLowerInvariant();
+                string extension = StringExtensions.GetAllowedExtensionFromFile(document.DocumentName);
                 string errorMsg = "";
 
                 if (extension == ".pdf")
                 {
                     // Full path to the document
-                    //string documentFullPath = _pathService.GetUploadFilePath(document.DocumentName);
-                    //await _ocrService.OCRPDFFile(documentFullPath, outputBasePath, "eng", _pathService.GetUploadFolderPath());
+                    await _ocrService.OCRPDFDocument(document, "eng", _pathService.GetUploadFolderPath());
                 }
-                else
+                else if(!string.IsNullOrEmpty(extension))
                 {
                     // For non-PDF files, just pass the document name
 

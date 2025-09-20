@@ -13,22 +13,20 @@ namespace DocMgrLib.Services
         private readonly PathService _pathService;
 
 
-        enum SupportedImageExtensions
-        {
-            jpg,
-            jpeg,
-            png,
-            bmp,
-            tiff,
-            tif,
-            gif
-        }
-
         public OCRService(IConfiguration configuration, ILogger<OCRService> logger, PathService pathService)
         {
             _configuration = configuration;
             _logger = logger;
             _pathService = pathService;
+        }
+
+        public bool IsOCRable(DocumentModel document)
+        {
+            string fileExtension = StringExtensions.GetAllowedExtensionFromFile(document.DocumentName);
+            if (string.IsNullOrEmpty(fileExtension))
+                return false;
+
+            return true;
         }
 
         //public async Task DoOcr(DocumentModel? documentModel)
@@ -106,21 +104,13 @@ namespace DocMgrLib.Services
 
         public string OCRImageFile(string imageName, string language, string imagePath)
         {
-            // if outputBase has an extension, remove it.
-            //IEnumerable<int> indexes = outputBase.AllIndexesOf('.');
-
-            //if (indexes.Count() > 0)
-            //{
-            //    int lastIndex = indexes.Last();
-            //    outputBase = outputBase.Substring(0, lastIndex);    
-            //}
 
             string ocrOutputFolder = _pathService.GetOCRFolderPath();
 
             // Ensure the OCR output directory exists
             Directory.CreateDirectory(ocrOutputFolder);
 
-            string outputFileWithoutExtension = StripExtensionFromImageFile(imageName);
+            string outputFileWithoutExtension = StringExtensions.StripExtensionFromImageFile(imageName);
 
             string outputBase = ocrOutputFolder + "\\" + Path.GetFileNameWithoutExtension(imageName);   
 
@@ -215,9 +205,9 @@ namespace DocMgrLib.Services
             return returnMsg;
         }
 
-        public async Task<string> OCRPDFFile(string pdfName, string outputFile, string language, string UploadsFolder)
+        public async Task<string> OCRPDFDocument(DocumentModel document, string language, string UploadsFolder)
         {
-            string fileNameNoExtension = Path.GetFileNameWithoutExtension(pdfName);
+            string fileNameNoExtension = Path.GetFileNameWithoutExtension(document.DocumentName);
 
             //string workFolder = _fileService.GetWorkFilePath();
             string workFolder = _configuration["WorkFilePath"];
@@ -238,7 +228,7 @@ namespace DocMgrLib.Services
                 p.StartInfo.ArgumentList.Add("-sCompression=lzw");
                 p.StartInfo.ArgumentList.Add("-dBATCH");
                 p.StartInfo.ArgumentList.Add($"-sOutputFile={tifFileName}");
-                p.StartInfo.ArgumentList.Add(pdfName);
+                p.StartInfo.ArgumentList.Add(document.DocumentName);
                 bool result = p.Start();
                 string output = p.StandardOutput.ReadToEnd();
                 p.WaitForExit(1000000);
@@ -467,28 +457,6 @@ namespace DocMgrLib.Services
                     }
                 }
             }
-        }
-
-        private string StripExtensionFromImageFile(string fileName)
-        {
-            if (string.IsNullOrEmpty(fileName))
-                return fileName;
-
-            // Get all enum values as strings
-            string[] extensions = Enum.GetNames(typeof(SupportedImageExtensions))
-                .Select(e => "." + e.ToLowerInvariant())
-                .ToArray();
-
-            foreach (string extension in extensions)
-            {
-                if (fileName.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
-                {
-                    // Remove the extension
-                    return fileName.Substring(0, fileName.Length - extension.Length);
-                }
-            }
-
-            return fileName;
         }
     }
 }
