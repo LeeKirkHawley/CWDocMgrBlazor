@@ -50,16 +50,23 @@ namespace CWDocMgrBlazor.Services
 
         public async Task<string?> GetDocumentFileContent(string documentFilePath) 
         {
-            byte[] fileBytes = [];
-            string ? base64FileContent = null;
+            if (!File.Exists(documentFilePath))
+                return null;
 
-            if (System.IO.File.Exists(documentFilePath))
+            byte[] bytes = await File.ReadAllBytesAsync(documentFilePath);
+            string ext = Path.GetExtension(documentFilePath).ToLowerInvariant();
+
+            string contentType = ext switch
             {
-                fileBytes = await System.IO.File.ReadAllBytesAsync(documentFilePath);
-                base64FileContent = $"data:image/jpeg;base64,{Convert.ToBase64String(fileBytes)}";
-            }
+                ".pdf" => "application/pdf",
+                ".png" => "image/png",
+                ".jpg" or ".jpeg" => "image/jpeg",
+                ".gif" => "image/gif",
+                ".tif" or ".tiff" => "image/tiff",
+                _ => "application/octet-stream"
+            };
 
-            return base64FileContent;
+            return $"data:{contentType};base64,{Convert.ToBase64String(bytes)}";
         }
 
         public async Task<DocumentModel> UploadFile(DocumentUploadDto dto, string uploadsFolder, string? userId)
