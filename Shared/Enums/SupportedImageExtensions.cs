@@ -13,6 +13,7 @@ namespace SharedLib.Enums
         bmp,
         tiff,
         tif,
-        gif
+        gif,
+        pdf
     }
 }

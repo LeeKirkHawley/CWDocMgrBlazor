@@ -1,6 +1,7 @@
 ﻿using CWDocMgrBlazor.Models;
 using CWDocMgrBlazor.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.IdentityModel.Tokens;
 using SharedLib.Extensions;
 using System.Diagnostics;
 
@@ -22,6 +23,11 @@ namespace DocMgrLib.Services
 
         public bool IsOCRable(DocumentModel document)
         {
+            if(document.DocumentName.ToUpper().EndsWith(".PDF"))
+            {
+                return true;
+            }
+
             string fileExtension = StringExtensions.GetAllowedExtensionFromFile(document.DocumentName);
             if (string.IsNullOrEmpty(fileExtension))
                 return false;
@@ -104,6 +110,11 @@ namespace DocMgrLib.Services
 
         public string OCRImageFile(string imageName, string language, string imagePath)
         {
+            // invariants
+            Debug.Assert(!imageName.IsNullOrEmpty());
+            Debug.Assert(!language.IsNullOrEmpty());
+            Debug.Assert(!imagePath.IsNullOrEmpty());
+            Debug.Assert(File.Exists(imagePath), $"File {imagePath} doesn't exist");
 
             string ocrOutputFolder = _pathService.GetOCRFolderPath();
 
@@ -211,24 +222,38 @@ namespace DocMgrLib.Services
 
             //string workFolder = _fileService.GetWorkFilePath();
             string workFolder = _configuration["WorkFilePath"];
-            string tifFileName = workFolder + "\\" + fileNameNoExtension + ".tif";
+            Directory.CreateDirectory(workFolder);
+            string tifFilePath = Path.Combine(workFolder, fileNameNoExtension + ".tif");
+
+            string pdfPath = Path.Combine(UploadsFolder, document.DocumentName);
+            string ghostscriptPath = Path.Combine(_configuration["GhostscriptPath"], "gswin64c.exe");
+            string pdfPassword = _configuration["PDFPassword"]; // optional, can be empty
+
+
+            if (IsPdfLikelyEncrypted(pdfPath) && string.IsNullOrEmpty(pdfPassword))
+            {
+                _logger.LogWarning("PDF appears to be encrypted and no PDFPassword was provided.");
+                return "Error: PDF is encrypted. Provide a password or remove encryption before OCR.";
+            }
+
 
             // convert pdf to tif
             using (System.Diagnostics.Process p = new Process())
             {
-                string GhostscriptPath = Path.Combine(_configuration["GhostscriptPath"], "gswin64c.exe");  // "gswin64 'c' version doesn't show ui window
+                //string GhostscriptPath = Path.Combine(_configuration["GhostscriptPath"], "gswin64c.exe");  // "gswin64 'c' version doesn't show ui window
+                //string pdfPath = UploadsFolder + "\\" + document.DocumentName;
 
                 p.StartInfo.UseShellExecute = false;
                 p.StartInfo.RedirectStandardOutput = true;
-                p.StartInfo.FileName = GhostscriptPath;
+                p.StartInfo.FileName = ghostscriptPath;
                 p.StartInfo.ArgumentList.Add("-dNOPAUSE");
                 p.StartInfo.ArgumentList.Add("-r300");
                 p.StartInfo.ArgumentList.Add("-sDEVICE=tiffscaled24");
                 //p.StartInfo.ArgumentList.Add("-sDEVICE=tiffg4");
                 p.StartInfo.ArgumentList.Add("-sCompression=lzw");
                 p.StartInfo.ArgumentList.Add("-dBATCH");
-                p.StartInfo.ArgumentList.Add($"-sOutputFile={tifFileName}");
-                p.StartInfo.ArgumentList.Add(document.DocumentName);
+                p.StartInfo.ArgumentList.Add($"-sOutputFile={tifFilePath}");
+                p.StartInfo.ArgumentList.Add(pdfPath);
                 bool result = p.Start();
                 string output = p.StandardOutput.ReadToEnd();
                 p.WaitForExit(1000000);
@@ -236,8 +261,26 @@ namespace DocMgrLib.Services
 
             //string outputBase = _fileService.GetOcrFilePath(fileNameNoExtension);
             string outputBase = _configuration["OCROutputFolder"] + "\\" + fileNameNoExtension;
-            return OCRImageFile(tifFileName, language, UploadsFolder);
+            return OCRImageFile(document.DocumentName, language, tifFilePath);
 
+        }
+
+        // Lightweight heuristic (works for most PDFs)
+        private static bool IsPdfLikelyEncrypted(string pdfPath)
+        {
+            try
+            {
+                using var fs = File.OpenRead(pdfPath);
+                using var sr = new StreamReader(fs);
+                char[] buffer = new char[Math.Min(1_000_000, (int)fs.Length)];
+                int read = sr.Read(buffer, 0, buffer.Length);
+                var txt = new string(buffer, 0, read);
+                return txt.Contains("/Encrypt", StringComparison.OrdinalIgnoreCase);
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public List<SelectListItem> SetupLanguages()

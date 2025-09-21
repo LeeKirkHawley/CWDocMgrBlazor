@@ -69,27 +69,21 @@ else
     {
         try
         {
-            // Create the request DTO
             var ocrRequest = new OCRRequestDto { Id = Id };
 
-            // Send POST request to the OCR endpoint
             var response = await Http.PostAsJsonAsync("api/documents/ocrdocument", ocrRequest);
 
-            // Check if the request was successful
             if (response.IsSuccessStatusCode)
             {
-                // Deserialize the response
                 var result = await response.Content.ReadFromJsonAsync<OcrResponse>();
                 if (result != null)
                 {
-                    // Update the document with the OCR text
                     document.OCRText = result.ocrText;
-                    StateHasChanged(); // Notify Blazor to update the UI
+                    StateHasChanged();
                 }
             }
             else
             {
-                // Handle error
                 var errorMessage = await response.Content.ReadAsStringAsync();
                 Console.Error.WriteLine($"OCR processing failed: {errorMessage}");
                 // Optionally display an error message to the user

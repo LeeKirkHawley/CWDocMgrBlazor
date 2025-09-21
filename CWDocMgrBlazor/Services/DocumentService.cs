@@ -129,11 +129,10 @@ namespace CWDocMgrBlazor.Services
                     return "Error: OCR output folder not configured";
                 }
 
-                // Process the document based on file type
                 string extension = StringExtensions.GetAllowedExtensionFromFile(document.DocumentName);
                 string errorMsg = "";
 
-                if (extension == ".pdf")
+                if (extension.ToUpper() == ".PDF")
                 {
                     // Full path to the document
                     await _ocrService.OCRPDFDocument(document, "eng", _pathService.GetUploadFolderPath());
@@ -141,7 +140,6 @@ namespace CWDocMgrBlazor.Services
                 else if(!string.IsNullOrEmpty(extension))
                 {
                     // For non-PDF files, just pass the document name
-
                     errorMsg = _ocrService.OCRImageFile(document.DocumentName, "eng", uploadFilePath);
                     if (!string.IsNullOrEmpty(errorMsg))
                     {
