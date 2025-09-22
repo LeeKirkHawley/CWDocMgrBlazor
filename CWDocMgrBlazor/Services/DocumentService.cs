@@ -140,7 +140,7 @@ namespace CWDocMgrBlazor.Services
                 else if(!string.IsNullOrEmpty(extension))
                 {
                     // For non-PDF files, just pass the document name
-                    errorMsg = _ocrService.OCRImageFile(document.DocumentName, "eng", uploadFilePath);
+                    errorMsg = await _ocrService.OCRImageFile(document.DocumentName, "eng", uploadFilePath);
                     if (!string.IsNullOrEmpty(errorMsg))
                     {
                         _logger.LogWarning($"OCR returned error: {errorMsg}");

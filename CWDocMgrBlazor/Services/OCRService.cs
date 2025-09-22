@@ -108,7 +108,7 @@ namespace DocMgrLib.Services
         //    //_debugLogger.Debug($"Leaving HomeController.Index()");
         //}
 
-        public string OCRImageFile(string imageName, string language, string imagePath)
+        public async Task<string> OCRImageFile(string imageName, string language, string imagePath)
         {
             // invariants
             Debug.Assert(!imageName.IsNullOrEmpty());
@@ -156,15 +156,15 @@ namespace DocMgrLib.Services
                 }
 
                 // Read the output streams in separate tasks to avoid deadlocks
-                var outputReader = process.StandardOutput.ReadToEndAsync();
-                var errorReader = process.StandardError.ReadToEndAsync();
+                var outputReader = await process.StandardOutput.ReadToEndAsync();
+                var errorReader = await process.StandardError.ReadToEndAsync();
 
                 // Wait for the process to exit with timeout
                 bool exited = process.WaitForExit(60000); // 60 second timeout
 
                 // Get the output regardless of whether the process exited normally
-                string stdOutput = outputReader.Result;
-                string errOutput = errorReader.Result;
+                string stdOutput = outputReader;
+                string errOutput = errorReader;
 
                 if (!exited)
                 {
@@ -261,7 +261,7 @@ namespace DocMgrLib.Services
 
             //string outputBase = _fileService.GetOcrFilePath(fileNameNoExtension);
             string outputBase = _configuration["OCROutputFolder"] + "\\" + fileNameNoExtension;
-            return OCRImageFile(document.DocumentName, language, tifFilePath);
+            return await OCRImageFile(document.DocumentName, language, tifFilePath);
 
         }
 

@@ -24,7 +24,13 @@ else
             </div>
         </div>
         <div class="d-flex flex-column mb-6" style="border: 1px solid #ccc; padding: 10px; border-radius: 4px;">
-            <button class="btn btn-primary mb-2" @onclick="() => DoOcr()">OCR</button>
+            <button @ref="ocrButton"
+                    id="OcrButton"
+                    class="btn btn-primary mb-2"
+                    @onclick="DoOcr"
+                    disabled="@isOcrRunning">
+                @(isOcrRunning ? "OCR (working...)" : "OCR")
+            </button>
         </div>
     </div>
 
@@ -60,6 +66,10 @@ else
     [Parameter] public int Id { get; set; }
     private DocumentDetailsVM? document;
 
+    private ElementReference ocrButton; // Reference to the OCR button
+    private bool isOcrRunning;          // Drive UI state instead of manipulating the DOM
+
+
     protected override async Task OnInitializedAsync()
     {
         document = await Http.GetFromJsonAsync<DocumentDetailsVM>($"api/documents/{Id}");
@@ -67,6 +77,9 @@ else
 
     private async Task DoOcr()
     {
+        isOcrRunning = true;
+        StateHasChanged();
+
         try
         {
             var ocrRequest = new OCRRequestDto { Id = Id };
@@ -93,6 +106,11 @@ else
         {
             Console.Error.WriteLine($"Error in OCR processing: {ex.Message}");
             // Optionally display an error message to the user
+        }
+        finally
+        {
+            isOcrRunning = false;
+            StateHasChanged();
         }
     }
 }
