@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CWDocMgrBlazor.Client", "CW
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLib", "Shared\SharedLib.csproj", "{9298337D-40EB-470D-ADF9-2CC7F70B4E08}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedLib.Tests", "SharedLib.Tests\SharedLib.Tests.csproj", "{E62A767D-EAE9-4C1C-9C9D-94EF71861986}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{9298337D-40EB-470D-ADF9-2CC7F70B4E08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9298337D-40EB-470D-ADF9-2CC7F70B4E08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9298337D-40EB-470D-ADF9-2CC7F70B4E08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E62A767D-EAE9-4C1C-9C9D-94EF71861986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E62A767D-EAE9-4C1C-9C9D-94EF71861986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E62A767D-EAE9-4C1C-9C9D-94EF71861986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E62A767D-EAE9-4C1C-9C9D-94EF71861986}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
