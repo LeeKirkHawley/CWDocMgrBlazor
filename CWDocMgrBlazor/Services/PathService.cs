@@ -1,4 +1,5 @@
 ﻿using CWDocMgrBlazor.Controllers;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CWDocMgrBlazor.Services
 {
@@ -7,6 +8,11 @@ namespace CWDocMgrBlazor.Services
         private readonly IConfiguration _config;
         private readonly ILogger<DocumentsController> _logger;
         private readonly IWebHostEnvironment _env;
+
+        public PathService()
+        {
+
+        }
 
         public PathService(IConfiguration config, ILogger<DocumentsController> logger, IWebHostEnvironment env)
         {
@@ -44,12 +50,17 @@ namespace CWDocMgrBlazor.Services
         {
             _logger.LogInformation($"In GetOCRFolderPath() - _env.ContentRootPath: {_env.ContentRootPath}");
 
-            string uploadsFolder = Path.Combine(_env.ContentRootPath, _config["OCROutputFolder"]);
-            if (uploadsFolder == null)
+            string configuredOCROutputFolder = _config["OCROutputFolder"];
+            if(configuredOCROutputFolder.IsNullOrEmpty())
             {
                 _logger.LogCritical("No configured OCR folder.");
                 throw new Exception("No configured OCR folder.");
             }
+
+            string uploadsFolder = Path.Combine(_env.ContentRootPath, configuredOCROutputFolder);
+            //if (uploadsFolder == null)
+            //{
+            //}
             return uploadsFolder;
         }
 

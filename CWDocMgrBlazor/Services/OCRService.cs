@@ -13,6 +13,9 @@ namespace DocMgrLib.Services
         private readonly ILogger<OCRService> _logger;
         private readonly PathService _pathService;
 
+        public OCRService()
+        {
+        }
 
         public OCRService(IConfiguration configuration, ILogger<OCRService> logger, PathService pathService)
         {
