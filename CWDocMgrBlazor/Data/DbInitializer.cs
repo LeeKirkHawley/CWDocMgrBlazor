@@ -24,6 +24,8 @@ public static class DbInitializer
 
             // Seed admin user
             await SeedAdminUser(userManager, roleManager, configuration);
+
+            await SeedAdditionalRoles(roleManager);
         }
         catch (Exception ex)
         {
@@ -31,6 +33,36 @@ public static class DbInitializer
             logger.LogError(ex, "An error occurred while seeding the database.");
         }
     }
+
+    private static async Task SeedAdditionalRoles(RoleManager<IdentityRole> roleManager)
+    {
+        // Create Admin role if it doesn't exist
+        if (!await roleManager.RoleExistsAsync("Admin"))
+        {
+            await roleManager.CreateAsync(new IdentityRole("Admin"));
+        }
+
+        // Create User role if it doesn't exist
+        if (!await roleManager.RoleExistsAsync("User"))
+        {
+            await roleManager.CreateAsync(new IdentityRole("User"));
+        }
+
+        // Create User role if it doesn't exist
+        if (!await roleManager.RoleExistsAsync("ReadOnly"))
+        {
+            await roleManager.CreateAsync(new IdentityRole("ReadOnly"));
+        }
+
+        // Create User role if it doesn't exist
+        if (!await roleManager.RoleExistsAsync("OrgManager"))
+        {
+            await roleManager.CreateAsync(new IdentityRole("OrgManager"));
+        }
+
+
+    }
+
 
     private static async Task SeedAdminUser(
         UserManager<ApplicationUser> userManager,
