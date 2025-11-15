@@ -1,14 +1,13 @@
-﻿using CWDocMgrBlazor.Data;
-using CWDocMgrBlazor.Models;
-using CWDocMgrBlazor.Services;
-using DocMgrLib.Services;
+﻿using CWDocMgrBlazor.Api.Data;
+using CWDocMgrBlazor.Api.Models;
+using CWDocMgrBlazor.Api.Services;
+using CWDocMgrBlazor.Api.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
-using NUnit.Framework;
 using SharedLib.DTOs;
 
 namespace CWDocMgrBlazor.Tests
@@ -22,7 +21,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -80,7 +79,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -116,7 +115,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -165,7 +164,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -209,7 +208,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -234,7 +233,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -279,7 +278,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -324,7 +323,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -365,7 +364,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -406,7 +405,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -479,7 +478,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -532,7 +531,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -587,7 +586,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
@@ -641,7 +640,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<DocumentService>>();
             var mockConfig = new Mock<IConfiguration>();
             var mockOcrService = new Mock<OCRService>(mockConfig.Object, Mock.Of<ILogger<OCRService>>(), Mock.Of<PathService>());
-            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
+            var mockPathService = new Mock<PathService>(mockConfig.Object, Mock.Of<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>(), Mock.Of<IWebHostEnvironment>());
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())

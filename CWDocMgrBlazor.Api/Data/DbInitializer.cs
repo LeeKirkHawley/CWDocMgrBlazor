@@ -1,8 +1,8 @@
-﻿using CWDocMgrBlazor.Data;
+﻿using CWDocMgrBlazor.Api.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace CWDocMgrBlazor.Data;
+namespace CWDocMgrBlazor.Api.Data;
 
 public static class DbInitializer
 {

@@ -1,13 +1,11 @@
-﻿using CWDocMgrBlazor.Models;
-using CWDocMgrBlazor.Services;
+﻿using CWDocMgrBlazor.Api.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.IdentityModel.Tokens;
 using SharedLib.Extensions;
 using System.Diagnostics;
 
-namespace DocMgrLib.Services
+namespace CWDocMgrBlazor.Api.Services
 {
-    public class OCRService
+    public class OCRService : IOCRService
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<OCRService> _logger;
@@ -26,7 +24,7 @@ namespace DocMgrLib.Services
 
         public bool IsOCRable(DocumentModel document)
         {
-            if(document.DocumentName.ToUpper().EndsWith(".PDF"))
+            if (document.DocumentName.ToUpper().EndsWith(".PDF"))
             {
                 return true;
             }
@@ -114,9 +112,9 @@ namespace DocMgrLib.Services
         public async Task<string> OCRImageFile(string imageName, string language, string imagePath)
         {
             // invariants
-            Debug.Assert(!imageName.IsNullOrEmpty());
-            Debug.Assert(!language.IsNullOrEmpty());
-            Debug.Assert(!imagePath.IsNullOrEmpty());
+            Debug.Assert(!string.IsNullOrEmpty(imageName));
+            Debug.Assert(!string.IsNullOrEmpty(language));
+            Debug.Assert(!string.IsNullOrEmpty(imagePath));
             Debug.Assert(File.Exists(imagePath), $"File {imagePath} doesn't exist");
 
             string ocrOutputFolder = _pathService.GetOCRFolderPath();
@@ -126,7 +124,7 @@ namespace DocMgrLib.Services
 
             string outputFileWithoutExtension = StringExtensions.StripExtensionFromImageFile(imageName);
 
-            string outputBase = ocrOutputFolder + "\\" + Path.GetFileNameWithoutExtension(imageName);   
+            string outputBase = ocrOutputFolder + "\\" + Path.GetFileNameWithoutExtension(imageName);
 
             string TessPath = _configuration["TesseractPath"] + "/tesseract.exe";
 

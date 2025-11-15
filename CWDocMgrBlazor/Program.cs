@@ -1,9 +1,7 @@
-using CWDocMgrBlazor;
+using CWDocMgrBlazor.Api.Data;
+using CWDocMgrBlazor.Api.Services;
 using CWDocMgrBlazor.Components;
 using CWDocMgrBlazor.Components.Account;
-using CWDocMgrBlazor.Data;
-using CWDocMgrBlazor.Services;
-using DocMgrLib.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -52,8 +50,12 @@ builder.Services.AddAuthorization();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 Log.Information("ConnectionString: " + connectionString);
 
+// Instead of direct DB access, consider using HttpClient to call your API
+builder.Services.AddScoped<IDocumentService, DocumentService>(); // Calls API instead of direct DB
+
+// Keep Identity for authentication only
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString)); // Only for Identity
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)

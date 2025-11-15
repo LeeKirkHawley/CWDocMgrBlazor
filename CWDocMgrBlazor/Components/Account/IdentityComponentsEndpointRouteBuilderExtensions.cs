@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using CWDocMgrBlazor.Components.Account.Pages;
 using CWDocMgrBlazor.Components.Account.Pages.Manage;
-using CWDocMgrBlazor.Data;
+using CWDocMgrBlazor.Api.Data;
 
 namespace Microsoft.AspNetCore.Routing;
 

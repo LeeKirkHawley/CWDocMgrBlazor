@@ -1,4 +1,4 @@
-﻿namespace CWDocMgrBlazor.Models
+﻿namespace CWDocMgrBlazor.Api.Models
 {
     internal class Language
     {

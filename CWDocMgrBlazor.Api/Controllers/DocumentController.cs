@@ -1,6 +1,6 @@
-﻿using CWDocMgrBlazor.Data;
-using CWDocMgrBlazor.Models;
-using CWDocMgrBlazor.Services;
+﻿using CWDocMgrBlazor.Api.Data;
+using CWDocMgrBlazor.Api.Models;
+using CWDocMgrBlazor.Api.   Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +8,7 @@ using SharedLib.DTOs;
 using SharedLib.ViewModels;
 using System.Security.Claims;
 
-namespace CWDocMgrBlazor.Controllers
+namespace CWDocMgrBlazor.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

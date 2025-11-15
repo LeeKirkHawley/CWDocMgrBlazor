@@ -1,9 +1,9 @@
-using CWDocMgrBlazor.Models;
+using CWDocMgrBlazor.Api.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace CWDocMgrBlazor.Data;
+namespace CWDocMgrBlazor.Api.Data;
 
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -33,3 +33,22 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             .OnDelete(DeleteBehavior.Restrict); // Prevent deleting admin if they have organizations
     }
 }
+
+public class Organization : IEquatable<Organization>
+{
+    public int Id { get; set; }
+    public required string Name { get; set; }
+    public required string Description { get; set; }
+    public required string OrgFolderName { get; set; }
+    public required string AdministratorId { get; set; }
+    public DateTime CreatedDate { get; set; }
+    public bool IsActive { get; set; }
+    public ApplicationUser? Administrator { get; set; }
+    public virtual ICollection<ApplicationUser> Users { get; set; } = new List<ApplicationUser>();
+
+    public bool Equals(Organization? other)
+    {
+        throw new NotImplementedException();
+    }
+}
+// This ensures EF Core can create proxies and navigation properties correctly.

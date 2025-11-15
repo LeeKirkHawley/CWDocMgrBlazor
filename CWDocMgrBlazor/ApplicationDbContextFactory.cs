@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using System.IO;
+using CWDocMgrBlazor.Data;
+using CWDocMgrBlazor.Api.Data; // Add this using directive if ApplicationDbContext is in this namespace
 
 namespace CWDocMgrBlazor.Data
 {

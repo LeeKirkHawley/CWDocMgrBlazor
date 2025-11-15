@@ -1,14 +1,14 @@
-﻿using CWDocMgrBlazor.Data;
-using CWDocMgrBlazor.Models;
-using DocMgrLib.Services;
+﻿using CWDocMgrBlazor.Api.Data;
+using CWDocMgrBlazor.Api.Models;
+using CWDocMgrBlazor.Api.Services;
 using Microsoft.EntityFrameworkCore;
 using SharedLib.DTOs;
 using SharedLib.Extensions;
 
-namespace CWDocMgrBlazor.Services
+namespace CWDocMgrBlazor.Api.Services
 {
 
-    public class DocumentService
+    public class DocumentService : IDocumentService
     {
         private readonly ILogger<DocumentService> _logger;
         public readonly IConfiguration _config;
@@ -16,8 +16,8 @@ namespace CWDocMgrBlazor.Services
         private readonly OCRService _ocrService;
         private readonly PathService _pathService;
 
-        public DocumentService(ILogger<DocumentService> logger, IConfiguration config, ApplicationDbContext db, 
-            OCRService ocrService, PathService pathService) 
+        public DocumentService(ILogger<DocumentService> logger, IConfiguration config, ApplicationDbContext db,
+            OCRService ocrService, PathService pathService)
         {
             _logger = logger;
             _config = config;
@@ -26,7 +26,7 @@ namespace CWDocMgrBlazor.Services
             _pathService = pathService;
         }
 
-        public async Task<List<DocumentModel>> GetAllDocuments() 
+        public async Task<List<DocumentModel>> GetAllDocuments()
         {
             _logger.LogDebug("Retrieving all documents from the database.");
             List<DocumentModel> docs = await _db.Documents.ToListAsync();
@@ -48,7 +48,7 @@ namespace CWDocMgrBlazor.Services
             return document;
         }
 
-        public async Task<string?> GetDocumentFileContent(string documentFilePath) 
+        public async Task<string?> GetDocumentFileContent(string documentFilePath)
         {
             if (!File.Exists(documentFilePath))
                 return null;
@@ -114,12 +114,12 @@ namespace CWDocMgrBlazor.Services
             _logger.LogInformation($"In OCRDocument(): DocumentName is {document.DocumentName} - ocrOutputFolder is {ocrOutputFolder} - uploadFilePath is {uploadFilePath} - rootPath is {rootPath}");
 
             bool OCRable = _ocrService.IsOCRable(document);
-            if(OCRable == false && !document.DocumentName.ToUpper().EndsWith(".PDF"))
+            if (OCRable == false && !document.DocumentName.ToUpper().EndsWith(".PDF"))
             {
                 string errorMsg = $"Document {document.DocumentName} is not OCRable.";
                 _logger.LogInformation(errorMsg);
                 throw (new InvalidOperationException(errorMsg));
-            }   
+            }
 
             try
             {
@@ -137,7 +137,7 @@ namespace CWDocMgrBlazor.Services
                     // Full path to the document
                     await _ocrService.OCRPDFDocument(document, "eng", _pathService.GetUploadFolderPath());
                 }
-                else if(!string.IsNullOrEmpty(extension))
+                else if (!string.IsNullOrEmpty(extension))
                 {
                     // For non-PDF files, just pass the document name
                     errorMsg = await _ocrService.OCRImageFile(document.DocumentName, "eng", uploadFilePath);

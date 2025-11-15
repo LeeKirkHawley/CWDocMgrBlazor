@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using CWDocMgrBlazor.Data;
+using CWDocMgrBlazor.Api.Data;
 
 namespace CWDocMgrBlazor.Components.Account;
 

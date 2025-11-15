@@ -1,4 +1,4 @@
-﻿using CWDocMgrBlazor.Services;
+﻿using CWDocMgrBlazor.Api.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -13,7 +13,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");
@@ -35,7 +35,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");
@@ -57,7 +57,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");
@@ -78,7 +78,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");
@@ -106,7 +106,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");
@@ -128,7 +128,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");
@@ -149,7 +149,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");
@@ -176,7 +176,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");
@@ -204,7 +204,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");
@@ -226,7 +226,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");
@@ -248,7 +248,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("/var/www/myapp");
@@ -269,7 +269,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("/var/www/myapp");
@@ -290,7 +290,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");
@@ -311,7 +311,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");
@@ -332,7 +332,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");
@@ -354,7 +354,7 @@ namespace SharedLib.Tests
         {
             // Arrange
             var mockConfig = new Mock<IConfiguration>();
-            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>();
+            var mockLogger = new Mock<ILogger<CWDocMgrBlazor.Api.Controllers.DocumentsController>>();
             var mockEnv = new Mock<IWebHostEnvironment>();
 
             mockEnv.Setup(x => x.ContentRootPath).Returns("C:\\TestApp");

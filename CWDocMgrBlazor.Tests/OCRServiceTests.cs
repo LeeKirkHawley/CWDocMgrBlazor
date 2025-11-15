@@ -1,11 +1,11 @@
-﻿using CWDocMgrBlazor.Models;
-using CWDocMgrBlazor.Services;
-using DocMgrLib.Services;
+﻿using CWDocMgrBlazor.Api.Models;
+using CWDocMgrBlazor.Api.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
 using NUnit.Framework;
+using CWDocMgrBlazor.Api.Controllers;
 
 namespace CWDocMgrBlazor.Tests
 {
@@ -29,7 +29,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             // Act
@@ -47,7 +47,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -76,7 +76,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -105,7 +105,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -134,7 +134,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -163,7 +163,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -192,7 +192,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -221,7 +221,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -250,7 +250,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -279,7 +279,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -308,7 +308,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -337,7 +337,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -363,7 +363,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -392,7 +392,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -421,7 +421,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -450,7 +450,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -479,7 +479,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);
@@ -508,7 +508,7 @@ namespace CWDocMgrBlazor.Tests
             var mockLogger = new Mock<ILogger<OCRService>>();
             var mockPathService = new Mock<PathService>(
                 mockConfig.Object,
-                Mock.Of<ILogger<CWDocMgrBlazor.Controllers.DocumentsController>>(),
+                Mock.Of<ILogger<DocumentsController>>(),
                 Mock.Of<IWebHostEnvironment>());
 
             var ocrService = new OCRService(mockConfig.Object, mockLogger.Object, mockPathService.Object);

@@ -1,7 +1,7 @@
-﻿using CWDocMgrBlazor.Data;
+﻿using CWDocMgrBlazor.Api.Data;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CWDocMgrBlazor.Models
+namespace CWDocMgrBlazor.Api.Models
 {
     public record Organization
     {

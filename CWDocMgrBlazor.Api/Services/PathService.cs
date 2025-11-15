@@ -1,9 +1,9 @@
-﻿using CWDocMgrBlazor.Controllers;
+﻿using CWDocMgrBlazor.Api.Controllers;
 using Microsoft.IdentityModel.Tokens;
 
-namespace CWDocMgrBlazor.Services
+namespace CWDocMgrBlazor.Api.Services
 {
-    public class PathService
+    public class PathService : IPathService
     {
         private readonly IConfiguration _config;
         private readonly ILogger<DocumentsController> _logger;
@@ -51,7 +51,7 @@ namespace CWDocMgrBlazor.Services
             _logger.LogInformation($"In GetOCRFolderPath() - _env.ContentRootPath: {_env.ContentRootPath}");
 
             string configuredOCROutputFolder = _config["OCROutputFolder"];
-            if(configuredOCROutputFolder.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(configuredOCROutputFolder))
             {
                 _logger.LogCritical("No configured OCR folder.");
                 throw new Exception("No configured OCR folder.");
