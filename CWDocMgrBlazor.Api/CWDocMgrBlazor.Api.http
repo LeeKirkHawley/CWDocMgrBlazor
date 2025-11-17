@@ -1,0 +1,6 @@
+@CWDocMgrBlazor.Api_HostAddress = http://localhost:5162
+
+GET {{CWDocMgrBlazor.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
