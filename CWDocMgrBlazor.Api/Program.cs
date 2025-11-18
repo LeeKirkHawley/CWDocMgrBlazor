@@ -1,20 +1,36 @@
 using CWDocMgrBlazor.Api.Data;
 using CWDocMgrBlazor.Api.Models;
+using CWDocMgrBlazor.Api.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using Serilog.Events;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure Serilog early
+// Force Production environment if not explicitly set
+if (string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")))
+{
+    builder.Environment.EnvironmentName = "Production";
+}
+
+// Configure Serilog - use relative path for production
 string logFolder = builder.Configuration["LogFolder"] ?? "Logs";
+
+if (!Path.IsPathRooted(logFolder))
+{
+    logFolder = Path.Combine(builder.Environment.ContentRootPath, logFolder);
+}
+
 Directory.CreateDirectory(logFolder);
 string logFileName = Path.Combine(logFolder, "log-.txt");
 
+// Set log level based on environment
+var logLevel = builder.Environment.IsDevelopment()
+    ? Serilog.Events.LogEventLevel.Debug
+    : Serilog.Events.LogEventLevel.Warning;
+
 Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Debug()
+    .MinimumLevel.Is(logLevel)
     .WriteTo.File(logFileName, rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
@@ -25,7 +41,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Add Identity (if needed)
+// Add Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
@@ -33,31 +49,53 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
-
-
-
-// Add services to the container.
+// Register services
+builder.Services.AddScoped<PathService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
+
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        var allowedOrigins = builder.Configuration["AllowedOrigins"] ?? "*";
+        if (allowedOrigins == "*")
+        {
+            policy.AllowAnyOrigin();
+        }
+        else
+        {
+            policy.WithOrigins(allowedOrigins.Split(','));
+        }
+        policy.AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
+// Only add OpenAPI in Development
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddOpenApi();
+}
 
 var app = builder.Build();
 
-
-
-
-
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+else
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts();
+}
 
 app.UseHttpsRedirection();
-
+app.UseCors();
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

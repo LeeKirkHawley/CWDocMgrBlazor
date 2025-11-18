@@ -1,20 +1,14 @@
-﻿using CWDocMgrBlazor.Controllers;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 
 namespace CWDocMgrBlazor.Api.Services
 {
     public class PathService
     {
         private readonly IConfiguration _config;
-        private readonly ILogger<DocumentsController> _logger;
+        private readonly ILogger<PathService> _logger;
         private readonly IWebHostEnvironment _env;
 
-        public PathService()
-        {
-
-        }
-
-        public PathService(IConfiguration config, ILogger<DocumentsController> logger, IWebHostEnvironment env)
+        public PathService(IConfiguration config, ILogger<PathService> logger, IWebHostEnvironment env)
         {
             _config = config;
             _logger = logger;
@@ -30,12 +24,22 @@ namespace CWDocMgrBlazor.Api.Services
 
         public string GetUploadFolderPath()
         {
-            string uploadsFolder = Path.Combine(_env.ContentRootPath, _config["UploadsFolder"]);
-            if (uploadsFolder == null)
+            string configuredFolder = _config["UploadsFolder"];
+            if (string.IsNullOrEmpty(configuredFolder))
             {
                 _logger.LogCritical("No configured upload folder.");
                 throw new Exception("No configured upload folder.");
             }
+
+            // Use relative path for production
+            string uploadsFolder = Path.IsPathRooted(configuredFolder)
+                ? configuredFolder
+                : Path.Combine(_env.ContentRootPath, configuredFolder);
+
+            // Ensure directory exists
+            Directory.CreateDirectory(uploadsFolder);
+            
+            _logger.LogInformation($"Upload folder path: {uploadsFolder}");
             return uploadsFolder;
         }
 
@@ -51,19 +55,22 @@ namespace CWDocMgrBlazor.Api.Services
             _logger.LogInformation($"In GetOCRFolderPath() - _env.ContentRootPath: {_env.ContentRootPath}");
 
             string configuredOCROutputFolder = _config["OCROutputFolder"];
-            if(configuredOCROutputFolder.IsNullOrEmpty())
+            if (string.IsNullOrEmpty(configuredOCROutputFolder))
             {
                 _logger.LogCritical("No configured OCR folder.");
                 throw new Exception("No configured OCR folder.");
             }
 
-            string uploadsFolder = Path.Combine(_env.ContentRootPath, configuredOCROutputFolder);
-            //if (uploadsFolder == null)
-            //{
-            //}
-            return uploadsFolder;
+            // Use relative path for production
+            string ocrFolder = Path.IsPathRooted(configuredOCROutputFolder)
+                ? configuredOCROutputFolder
+                : Path.Combine(_env.ContentRootPath, configuredOCROutputFolder);
+
+            // Ensure directory exists
+            Directory.CreateDirectory(ocrFolder);
+            
+            _logger.LogInformation($"OCR folder path: {ocrFolder}");
+            return ocrFolder;
         }
-
-
     }
 }
