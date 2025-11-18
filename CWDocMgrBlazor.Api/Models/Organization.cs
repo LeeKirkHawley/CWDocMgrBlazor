@@ -1,4 +1,4 @@
-﻿using CWDocMgrBlazor.Data;
+﻿using CWDocMgrBlazor.Api.Data;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CWDocMgrBlazor.Api.Models
