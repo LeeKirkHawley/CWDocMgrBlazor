@@ -1,8 +1,47 @@
 ﻿@page "/"
 @using Microsoft.AspNetCore.Authorization
+@using CWDocMgrBlazor.Client.Shared
+@using SharedLib.Models
+@using SharedLib.ViewModels
+@inject HttpClient Http
+@inject AuthenticationStateProvider AuthStateProvider
 
 @attribute [Authorize]
 
 <PageTitle>Home</PageTitle>
+
+<NavLink class="btn btn-primary action-button" href="/document/upload">
+    Upload Document
+</NavLink>
+
+<DocumentList Documents="documents" OnDocumentDeleted="LoadDocuments"></DocumentList>
+
+@code {
+    List<DocumentVM> documents = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadDocuments();
+    }
+
+    private async Task LoadDocuments()
+    {
+        try
+        {
+            AuthenticationState authState = await AuthStateProvider.GetAuthenticationStateAsync();
+            if (authState.User.Identity?.IsAuthenticated == true && Http.BaseAddress != null)
+            {
+                Console.WriteLine($"HttpClient.BaseAddress: {Http.BaseAddress}");
+                documents = await Http.GetFromJsonAsync<List<DocumentVM>>("api/documents") ?? new();
+                StateHasChanged();
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($"Error fetching documents: {ex.Message}");
+            documents = new();
+        }
+    }
+}
 
 
